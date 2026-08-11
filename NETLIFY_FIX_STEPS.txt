@@ -1,0 +1,23 @@
+NETLIFY DEPLOY CHECKLIST
+========================
+
+1. Run supabase_orders.sql once in Supabase SQL Editor.
+
+2. In Netlify Environment variables, keep:
+   RAZORPAY_KEY_ID
+   RAZORPAY_KEY_SECRET
+   SUPABASE_SECRET_KEY
+
+   SUPABASE_SERVICE_ROLE_KEY is accepted instead of SUPABASE_SECRET_KEY.
+   Do not put a secret key in config.js.
+
+3. In Supabase Authentication URL Configuration, add your live Netlify URL
+   and /reset-password.html as allowed redirect URLs.
+
+4. Deploy the extracted folder contents.
+
+5. Test account creation, sign-in, cart, WhatsApp ordering and a Razorpay TEST
+   payment. Confirm the paid order appears in My Account.
+
+6. Rotate any Razorpay secret that has previously been pasted into chat before
+   enabling Razorpay Live Mode.

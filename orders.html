@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#6b1f3f"><meta name="robots" content="noindex">
+  <meta name="description" content="View your Lakhnavi Chikankari order history and fulfilment status.">
+  <title>My orders | Lakhnavi Chikankari</title><link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><script src="page-shell.js" defer></script>
+</head>
+<body class="inner-page"><div id="pageHeader"></div><main id="main">
+  <section class="simple-hero account-hero page-width"><span class="eyebrow dark">CUSTOMER ACCOUNT</span><h1>My orders</h1><p>Review paid orders, current fulfilment status and tracking information using the same account you used at checkout.</p></section>
+  <section class="account-page page-width">
+    <div class="account-required" id="accountRequired"><span class="account-entry-icon large" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c.7-4 2.9-6 6.5-6s5.8 2 6.5 6"/></svg></span><h2>Sign in to see your orders</h2><p>Your order history is private and is only available after secure account sign-in.</p><a class="btn primary" href="index.html?open=account">Sign in / Create account</a></div>
+    <div id="customerOrders" hidden>
+      <div class="account-page-heading"><div><span class="eyebrow dark">SIGNED IN AS</span><h2 id="customerEmail">Customer</h2></div><div><button class="btn secondary" id="refreshOrdersBtn" type="button">Refresh orders</button><button class="text-button" id="ordersSignOutBtn" type="button">Sign out</button></div></div>
+      <div class="order-metrics"><article><span>Paid orders</span><strong id="orderCount">0</strong></article><article><span>Total order value</span><strong id="orderValue">₹0</strong></article><article><span>Latest status</span><strong id="latestStatus">—</strong></article></div>
+      <p class="form-message" id="ordersStatus" role="status"></p><div class="customer-order-list" id="customerOrderList"></div>
+    </div>
+  </section>
+  <section class="order-help page-width"><div><span class="eyebrow dark">NEED HELP?</span><h2>Have your order number ready</h2></div><p>For payment or delivery help, share the order number and payment ID. Never share your account password, OTP or full card information.</p><a class="line-link" href="https://wa.me/919899551923?text=Hello%20Lakhnavi%20Chikankari%2C%20I%20need%20help%20with%20an%20order." target="_blank" rel="noopener">Contact order support →</a></section>
+</main><div id="pageFooter"></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="orders-page.js"></script></body></html>

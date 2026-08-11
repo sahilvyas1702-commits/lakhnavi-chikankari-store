@@ -1,0 +1,152 @@
+// Public catalogue data. Prices are mirrored server-side in
+// netlify/functions/_products.js so checkout never trusts browser prices.
+window.PRODUCTS = {
+  p1: {
+    name: 'Ivory Hand-Embroidered Kurti',
+    price: 1499,
+    image: 'images/product-1.jpg?v=3',
+    category: 'pastel classic',
+    sku: 'LC-IV-101',
+    colour: 'Ivory',
+    craft: 'Floral thread embroidery',
+    fabric: 'Lightweight fabric; exact composition is confirmed per piece',
+    fit: 'Straight, easy silhouette',
+    occasion: 'Everyday elegance and intimate celebrations',
+    description: 'A quiet ivory kurti selected for its delicate floral surface work and versatile, light-toned finish.',
+    details: ['Soft neutral palette', 'Embroidered neckline and front panel', 'Designed for easy day-to-evening styling']
+  },
+  p2: {
+    name: 'Sunshine Yellow Chikankari',
+    price: 1699,
+    image: 'images/product-2.jpg?v=3',
+    category: 'pastel bright',
+    sku: 'LC-YW-102',
+    colour: 'Sunshine yellow',
+    craft: 'Tone-led floral embroidery',
+    fabric: 'Lightweight fabric; exact composition is confirmed per piece',
+    fit: 'Relaxed straight silhouette',
+    occasion: 'Brunches, daytime gatherings and festive mornings',
+    description: 'A cheerful yellow style that keeps the embroidery graceful while bringing colour to everyday dressing.',
+    details: ['Bright daytime colour', 'Detailed embroidered neckline', 'Pairs easily with white or neutral bottoms']
+  },
+  p3: {
+    name: 'Pastel Blue & Peach Collection',
+    price: 1799,
+    image: 'images/product-3.jpg?v=3',
+    category: 'pastel',
+    sku: 'LC-BP-103',
+    colour: 'Pastel blue and peach options',
+    craft: 'Delicate neckline embroidery',
+    fabric: 'Lightweight fabric; exact composition is confirmed per piece',
+    fit: 'Comfort-led straight silhouette',
+    occasion: 'Workdays, lunches and relaxed celebrations',
+    description: 'An airy pastel edit with carefully detailed necklines and a soft, understated colour story.',
+    details: ['Multiple pastel colour options', 'Fine floral thread detailing', 'Easy to layer with a dupatta']
+  },
+  p4: {
+    name: 'Ruby Red Embroidered Kurti',
+    price: 1999,
+    image: 'images/product-4.jpg?v=3',
+    category: 'bright',
+    sku: 'LC-RD-104',
+    colour: 'Ruby red',
+    craft: 'Statement floral embroidery',
+    fabric: 'Lightweight fabric; exact composition is confirmed per piece',
+    fit: 'Straight festive silhouette',
+    occasion: 'Festive evenings and family occasions',
+    description: 'A rich red kurti with expressive floral handwork for days when the embroidery should take centre stage.',
+    details: ['Saturated festive colour', 'High-contrast floral detailing', 'Statement piece for simple accessories']
+  },
+  p5: {
+    name: 'Classic Black Chikankari',
+    price: 2199,
+    image: 'images/product-4.jpg?v=3',
+    category: 'classic',
+    sku: 'LC-BK-105',
+    colour: 'Classic black',
+    craft: 'Contrast-inspired thread detailing',
+    fabric: 'Lightweight fabric; exact composition is confirmed per piece',
+    fit: 'Timeless straight silhouette',
+    occasion: 'Evening wear and smart everyday dressing',
+    description: 'A timeless dark-toned style that makes the embroidery feel crisp, graphic and easy to accessorise.',
+    details: ['Classic monochrome mood', 'Clean straight profile', 'Suitable for understated evening styling']
+  },
+  p6: {
+    name: 'Blush Pink Chikankari',
+    price: 2299,
+    image: 'images/product-5.jpg?v=3',
+    category: 'pastel',
+    sku: 'LC-PK-106',
+    colour: 'Blush pink',
+    craft: 'Graceful botanical embroidery',
+    fabric: 'Lightweight fabric; exact composition is confirmed per piece',
+    fit: 'Relaxed feminine silhouette',
+    occasion: 'Day celebrations and elegant casual wear',
+    description: 'A gentle pink kurti with botanical-inspired threadwork and an easy, feminine character.',
+    details: ['Soft blush palette', 'Botanical embroidery accents', 'Works with pearl or silver-toned accessories']
+  },
+  p7: {
+    name: 'Fresh Green Embroidered Kurti',
+    price: 2499,
+    image: 'images/product-5.jpg?v=3',
+    category: 'bright',
+    sku: 'LC-GR-107',
+    colour: 'Fresh green',
+    craft: 'Botanical-inspired threadwork',
+    fabric: 'Lightweight fabric; exact composition is confirmed per piece',
+    fit: 'Easy straight silhouette',
+    occasion: 'Festive days, lunches and colour-led styling',
+    description: 'A fresh green statement with botanical detailing and a lively colour designed to brighten simple separates.',
+    details: ['Fresh seasonal colour', 'Floral and leaf-inspired work', 'Designed to stand out with neutral bottoms']
+  },
+  p8: {
+    name: 'Festive Multicolour Kurti',
+    price: 2699,
+    image: 'images/product-6.jpg?v=3',
+    category: 'bright',
+    sku: 'LC-MC-108',
+    colour: 'Multicolour floral palette',
+    craft: 'Colourful floral embroidery',
+    fabric: 'Lightweight fabric; exact composition is confirmed per piece',
+    fit: 'Comfort-led festive silhouette',
+    occasion: 'Festivals, gifting and joyful gatherings',
+    description: 'A colourful embroidered piece for festive wardrobes, combining playful florals with an easy silhouette.',
+    details: ['Multicolour embroidery', 'Festive focal piece', 'Minimal jewellery is enough to complete the look']
+  },
+  p9: {
+    name: 'Crimson Floral Handwork',
+    price: 2799,
+    image: 'images/product-7.jpg?v=3',
+    category: 'classic bright',
+    sku: 'LC-CR-109',
+    colour: 'Crimson red',
+    craft: 'Dense floral threadwork',
+    fabric: 'Lightweight fabric; exact composition is confirmed per piece',
+    fit: 'Classic straight silhouette',
+    occasion: 'Traditional occasions and evening celebrations',
+    description: 'A deep crimson style with traditional floral character and a richer embroidered finish.',
+    details: ['Deep celebration-ready tone', 'Traditional floral arrangement', 'Strong standalone festive look']
+  },
+  p10: {
+    name: 'Emerald Green Handwork',
+    price: 2999,
+    image: 'images/product-8.jpg?v=3',
+    category: 'classic bright',
+    sku: 'LC-EM-110',
+    colour: 'Emerald green',
+    craft: 'Intricate statement embroidery',
+    fabric: 'Lightweight fabric; exact composition is confirmed per piece',
+    fit: 'Elegant straight silhouette',
+    occasion: 'Festive evenings and special gifting',
+    description: 'A jewel-toned green kurti selected for intricate embroidery and a polished special-occasion mood.',
+    details: ['Jewel-toned colour', 'Intricate floral surface detail', 'Premium statement in the current edit']
+  }
+};
+
+window.PRODUCT_GUIDANCE = {
+  sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+  sizeNote: 'Sizes are enquiry options. Current stock and garment measurements are confirmed personally before dispatch.',
+  care: 'Turn the garment inside out and use gentle handling. Prefer a mild hand wash separately or professional dry cleaning based on the care label supplied with the piece. Do not wring embroidered areas.',
+  delivery: 'Availability is confirmed before dispatch. Delivery timing depends on the destination and the selected piece.',
+  colourNote: 'Screen settings and photography can cause small colour differences.'
+};

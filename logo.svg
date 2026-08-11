@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 150">
+<defs>
+  <linearGradient id="g" x1="0" x2="1"><stop stop-color="#8c2f59"/><stop offset="1" stop-color="#c78b2b"/></linearGradient>
+</defs>
+<rect width="420" height="150" rx="22" fill="#fffaf4"/>
+<g fill="none" stroke="url(#g)" stroke-width="3">
+  <path d="M42 75c18-28 42-28 60 0-18 28-42 28-60 0Z"/>
+  <path d="M72 42c-10 10-10 20 0 30 10-10 10-20 0-30Z"/>
+  <path d="M72 108c-10-10-10-20 0-30 10 10 10 20 0 30Z"/>
+</g>
+<text x="104" y="77" font-family="Georgia,serif" font-size="42" font-weight="700" fill="#6e2547">LC</text>
+<text x="105" y="108" font-family="Georgia,serif" font-size="17" letter-spacing="3" fill="#9a6b2f">LAKHNAVI CHIKANKARI</text>
+</svg>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#6b1f3f">
+  <meta name="description" content="Detailed product information, care guidance and personal size assistance for Lakhnavi Chikankari kurtis.">
+  <title>Product details | Lakhnavi Chikankari</title>
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="page-shell.js" defer></script>
+</head>
+<body class="inner-page">
+  <div id="pageHeader"></div>
+  <main id="main">
+    <nav class="breadcrumbs page-width" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span><a href="index.html#collection">Collection</a><span>/</span><span id="breadcrumbProduct">Product</span></nav>
+
+    <section class="product-detail page-width" aria-labelledby="productTitle">
+      <div class="product-detail-media"><img id="productImage" src="images/product-1.jpg?v=3" width="750" height="1000" alt=""><span class="detail-badge">Handpicked edit</span></div>
+      <div class="product-detail-copy">
+        <span class="eyebrow dark" id="productSku">LAKHNAVI COLLECTION</span>
+        <h1 id="productTitle">Loading product…</h1>
+        <strong class="detail-price" id="productPrice"></strong>
+        <p class="detail-lead" id="productDescription"></p>
+        <div class="availability-panel"><span aria-hidden="true"></span><p><strong>Availability confirmed personally</strong><small>Message us before payment to confirm the size, colour and current piece.</small></p></div>
+
+        <dl class="product-facts">
+          <div><dt>Colour</dt><dd id="productColour"></dd></div>
+          <div><dt>Embroidery</dt><dd id="productCraft"></dd></div>
+          <div><dt>Fabric</dt><dd id="productFabric"></dd></div>
+          <div><dt>Fit</dt><dd id="productFit"></dd></div>
+          <div><dt>Best for</dt><dd id="productOccasion"></dd></div>
+        </dl>
+
+        <fieldset class="size-options"><legend>Preferred size for enquiry</legend><div id="sizeChoices" class="size-choice-list"></div><p id="sizeNote"></p></fieldset>
+        <ul class="product-detail-list" id="productDetails"></ul>
+        <div class="detail-actions"><button class="btn primary" id="detailAddBtn" type="button">Add to bag</button><a class="btn secondary" id="detailWhatsAppBtn" href="#" target="_blank" rel="noopener">Confirm on WhatsApp</a></div>
+        <p class="form-message" id="detailMessage" role="status"></p>
+      </div>
+    </section>
+
+    <section class="product-information page-width" aria-label="Product guidance">
+      <article><span class="eyebrow dark">THE PIECE</span><h2>What makes it special</h2><p id="pieceStory"></p></article>
+      <article><span class="eyebrow dark">CARE</span><h2>Handle the embroidery gently</h2><p id="careText"></p><a href="care-guide.html">Read the complete care guide →</a></article>
+      <article><span class="eyebrow dark">DELIVERY</span><h2>Confirmed before dispatch</h2><p id="deliveryText"></p><a href="contact.html">Ask about delivery →</a></article>
+    </section>
+
+    <section class="related-section page-width" aria-labelledby="relatedTitle"><div class="section-heading"><span class="eyebrow dark">YOU MAY ALSO LIKE</span><h2 id="relatedTitle">More from the edit</h2></div><div class="related-grid" id="relatedGrid"></div></section>
+  </main>
+  <div id="pageFooter"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="products.js"></script>
+  <script src="product-page.js"></script>
+</body>
+</html>

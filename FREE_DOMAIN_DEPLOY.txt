@@ -1,0 +1,20 @@
+PUBLISH ON A FREE NETLIFY SUBDOMAIN
+===================================
+
+1. Sign in to Netlify and choose Add new project → Deploy manually.
+2. Extract the ZIP file on your computer.
+3. Drag the extracted website folder into Netlify's deployment area.
+4. If Netlify creates the project as private, publish it from the project page.
+5. Open Domain management → Production domains → Options → Edit site name.
+6. Choose an available name. The address will look like:
+   https://YOUR-SITE-NAME.netlify.app
+7. Update the Supabase Authentication URLs described in README.txt.
+8. Add the server-only variables from README.txt before enabling online payment.
+
+IMPORTANT
+---------
+- The netlify.app address is the free domain-like website address.
+- A custom .com or .in is a paid registration and normally renews every year.
+- Netlify's free-plan limits, availability and terms apply.
+- Keep this entire folder or ZIP. It is your editable source copy for future
+  changes, even if you do not publish it now.

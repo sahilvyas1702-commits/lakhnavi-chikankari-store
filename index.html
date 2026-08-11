@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#6b1f3f">
+  <meta name="description" content="Shop handmade Lakhnavi Chikankari kurtis in pastels, bright colours and timeless classics. Secure checkout and personal WhatsApp assistance.">
+  <meta property="og:title" content="Lakhnavi Chikankari | The Kurti Collection">
+  <meta property="og:description" content="Handpicked Chikankari kurtis, personal assistance and secure ordering.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/product-2.jpg?v=2">
+  <title>Chikankari Kurtis | Lakhnavi Chikankari</title>
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="preload" href="images/product-2.jpg?v=2" as="image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="offer-bar">
+    <span>THE HANDMADE EDIT</span>
+    <p>Personal size assistance • WhatsApp ordering available</p>
+  </div>
+
+  <div class="collection-hero" id="home">
+    <header class="site-header" id="siteHeader">
+      <a class="brand" href="index.html" aria-label="Lakhnavi Chikankari home"><img src="logo.svg" alt="Lakhnavi Chikankari"></a>
+      <nav id="nav" aria-label="Primary navigation">
+        <a href="#collection" data-category-link="all">Shop</a>
+        <a href="about.html">Our story</a>
+        <a href="care-guide.html">Care guide</a>
+        <a href="contact.html">Contact</a>
+        <a href="orders.html">My orders</a>
+      </nav>
+      <div class="header-actions">
+        <button id="headerSearchBtn" class="icon-button search-trigger" type="button" aria-label="Search collection">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg>
+        </button>
+        <button id="authBtn" class="account-entry" type="button" aria-label="Sign in or create an account">
+          <span class="account-entry-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c.7-4 2.9-6 6.5-6s5.8 2 6.5 6"/></svg></span>
+          <span class="account-entry-copy"><small>Account</small><strong class="header-button-label">Sign in / Sign up</strong></span>
+        </button>
+        <button id="cartBtn" class="icon-button bag-button" type="button" aria-label="Open shopping bag">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 8h12l1 12H5L6 8Zm3 0V6a3 3 0 0 1 6 0v2"/></svg>
+          <span id="cartCount" class="cart-count" aria-label="0 items">0</span>
+        </button>
+        <button class="menu" id="menuBtn" type="button" aria-label="Open menu" aria-controls="nav" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </header>
+    <img class="hero-image" src="images/product-2.jpg?v=2" width="750" height="1000" alt="Colourful embroidered Chikankari kurtis" fetchpriority="high">
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-title">
+      <p><a href="#home">Home</a><span aria-hidden="true">/</span> Collection</p>
+      <span class="eyebrow">HANDCRAFTED INSPIRATION</span>
+      <h1>Chikankari Kurtis</h1>
+      <small>Colour, craft and effortless elegance</small>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="collection-section" id="collection">
+      <div class="collection-summary">
+        <div><span class="eyebrow dark">THE CURRENT EDIT</span><h2>Shop the collection</h2></div>
+        <p>Explore ten handpicked styles inspired by the grace of Lakhnavi embroidery.</p>
+      </div>
+
+      <div class="collection-topbar">
+        <p id="resultCount" aria-live="polite">10 products</p>
+        <label class="sort-control">Sort
+          <select id="sortProducts" aria-label="Sort products">
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price, low to high</option>
+            <option value="price-desc">Price, high to low</option>
+            <option value="name-asc">Alphabetically, A–Z</option>
+            <option value="name-desc">Alphabetically, Z–A</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="collection-tools">
+        <button class="filter-drawer-button" id="filterOpenBtn" type="button" aria-controls="filterDrawer" aria-expanded="false">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M7 12h10M10 17h4"/></svg> Filters
+        </button>
+        <div class="filters" role="group" aria-label="Filter products by collection">
+          <button class="filter active" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter" type="button" data-filter="pastel" aria-pressed="false">Pastels</button>
+          <button class="filter" type="button" data-filter="bright" aria-pressed="false">Brights</button>
+          <button class="filter" type="button" data-filter="classic" aria-pressed="false">Classics</button>
+        </div>
+        <label class="product-search">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg>
+          <span class="sr-only">Search the collection</span>
+          <input id="productSearch" type="search" placeholder="Search kurtis" autocomplete="off">
+        </label>
+      </div>
+
+      <div id="productGrid" class="product-grid"></div>
+      <div id="noResults" class="no-results" hidden>
+        <h3>No matching pieces</h3>
+        <p>Try another search or view the full collection.</p>
+        <button class="text-button" id="clearFiltersBtn" type="button">Clear all filters</button>
+      </div>
+    </section>
+
+    <section class="craft-banner" id="story">
+      <div class="craft-image"><img src="images/product-7.jpg?v=2" width="750" height="1000" loading="lazy" alt="Detailed floral Chikankari embroidery"></div>
+      <div class="craft-copy">
+        <span class="eyebrow dark">THE ART OF THE THREAD</span>
+        <h2>Made to be noticed.<br>Chosen to be loved.</h2>
+        <p>Lakhnavi Chikankari brings delicate embroidery into a colourful, modern wardrobe. Our edit celebrates pieces that feel graceful on ordinary days and special occasions alike.</p>
+        <div class="craft-points">
+          <p><b>01</b><span><strong>Embroidery first</strong><small>Every piece is selected for its handcrafted detail.</small></span></p>
+          <p><b>02</b><span><strong>Personal assistance</strong><small>Ask a real person about sizes and availability.</small></span></p>
+          <p><b>03</b><span><strong>Flexible ordering</strong><small>Use secure checkout or place your bag on WhatsApp.</small></span></p>
+        </div>
+        <a class="line-link" href="https://wa.me/919899551923?text=Hello%20Lakhnavi%20Chikankari%2C%20I%20would%20like%20help%20choosing%20a%20kurti." target="_blank" rel="noopener">Talk to a style assistant <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="service-row" aria-label="Shopping information">
+      <div><span>✦</span><p><strong>Handpicked collection</strong><small>Selected embroidery and finish</small></p></div>
+      <div><span>◌</span><p><strong>Size assistance</strong><small>Message before you order</small></p></div>
+      <div><span>◇</span><p><strong>Secure payment</strong><small>Protected Razorpay checkout</small></p></div>
+      <div><span>◉</span><p><strong>WhatsApp ordering</strong><small>Send your complete bag</small></p></div>
+    </section>
+
+    <section class="journal-section">
+      <div class="journal-heading"><span class="eyebrow dark">DISCOVER THE CRAFT</span><h2>The beauty of Chikankari</h2></div>
+      <div class="journal-grid">
+        <article><h3>A heritage of delicate embroidery</h3><p>Chikankari is closely associated with Lucknow and admired for its fine, thread-led surface work. The beauty often lies in the quiet detail—floral patterns, light textures and careful repetition.</p></article>
+        <article><h3>Choosing your everyday style</h3><p>Soft colours bring an understated mood, while deeper tones make the embroidery feel more graphic. Choose by colour first, then ask us to confirm current sizes and available variations.</p></article>
+        <article><h3>Caring for handwork</h3><p>Embroidered clothing benefits from gentle handling. Follow the care information shared with the specific piece, and contact us whenever you are unsure about washing or storage.</p></article>
+      </div>
+    </section>
+
+    <section class="newsletter" id="contact">
+      <div><span class="eyebrow">STAY CLOSE TO THE CRAFT</span><h2>New colours, directly to you.</h2><p>Join for collection updates and new-arrival announcements.</p></div>
+      <form id="newsletterForm"><label><span class="sr-only">Email address</span><input type="email" id="newsletterEmail" placeholder="Enter your email" required autocomplete="email"></label><button type="submit">Subscribe</button></form>
+    </section>
+  </main>
+
+  <div class="filter-backdrop" id="filterBackdrop" hidden></div>
+  <aside class="filter-drawer" id="filterDrawer" aria-labelledby="filterTitle" hidden>
+    <div class="drawer-heading"><h2 id="filterTitle">Filter collection</h2><button id="filterCloseBtn" type="button" aria-label="Close filters">×</button></div>
+    <fieldset><legend>Collection</legend>
+      <label><input type="radio" name="drawerFilter" value="all" checked> All styles</label>
+      <label><input type="radio" name="drawerFilter" value="pastel"> Pastels</label>
+      <label><input type="radio" name="drawerFilter" value="bright"> Bright colours</label>
+      <label><input type="radio" name="drawerFilter" value="classic"> Classics</label>
+    </fieldset>
+    <fieldset><legend>Maximum price</legend><div class="price-label"><span>₹1,499</span><output id="maxPriceOutput">₹2,999</output></div><input id="maxPrice" type="range" min="1499" max="2999" step="100" value="2999" aria-label="Maximum product price"></fieldset>
+    <button class="drawer-apply" id="filterApplyBtn" type="button">Show products</button>
+    <button class="drawer-clear" id="filterClearBtn" type="button">Clear filters</button>
+  </aside>
+
+  <div class="modal-backdrop" id="quickViewModal" hidden>
+    <div class="modal-card quick-view-card" role="dialog" aria-modal="true" aria-labelledby="quickTitle">
+      <button class="modal-close" data-close="quickViewModal" type="button" aria-label="Close product details">×</button>
+      <div class="quick-view-image"><img id="quickImage" src="images/product-1.jpg?v=2" alt=""></div>
+      <div class="quick-view-copy"><span class="eyebrow dark" id="quickCategory">HANDMADE EDIT</span><h2 id="quickTitle"></h2><strong class="quick-price" id="quickPrice"></strong><p id="quickDescription"></p><ul class="product-notes"><li>Detailed product and care information available</li><li>Colour may vary slightly in photographs</li><li>Contact us to confirm current sizes and availability</li></ul><div class="quick-actions"><button class="btn primary" id="quickAddBtn" type="button">Add to bag</button><a class="btn secondary" id="quickDetailsLink" href="product.html">View full details</a><a class="btn secondary" id="quickWhatsAppBtn" href="#" target="_blank" rel="noopener">Ask on WhatsApp</a></div></div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="authModal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <button class="modal-close" data-close="authModal" type="button" aria-label="Close">×</button><span class="eyebrow dark">YOUR ACCOUNT</span><h2 id="authTitle">Welcome back</h2><p class="modal-note" id="authIntro">Sign in to pay securely and see your saved orders.</p>
+      <div class="auth-tabs" role="tablist" aria-label="Account access"><button class="auth-tab active" data-auth-mode="signin" type="button" role="tab" aria-selected="true"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M14 4h4a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-4"/></svg><span>Sign in</span></button><button class="auth-tab" data-auth-mode="signup" type="button" role="tab" aria-selected="false"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M19 8v6M16 11h6"/></svg><span>Create account</span></button></div>
+      <form id="authForm"><label id="authNameField" hidden>Full name<input id="authName" type="text" autocomplete="name" placeholder="Your name"></label><label>Email<input id="authEmail" type="email" required autocomplete="email" placeholder="you@example.com"></label><label>Password<input id="authPassword" type="password" required minlength="6" autocomplete="current-password" placeholder="At least 6 characters"></label><button class="btn primary full auth-submit" type="submit" id="authSubmit"><span>Sign in</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></svg></button><button class="text-button" type="button" id="resetPasswordBtn">Forgot password?</button><p class="form-message" id="authMessage" role="status"></p></form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="accountModal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
+      <button class="modal-close" data-close="accountModal" type="button" aria-label="Close">×</button><span class="eyebrow dark">YOUR ACCOUNT</span><h2 id="accountTitle">My account</h2><p class="modal-note" id="accountEmail">Signed in</p>
+      <form id="profileForm" class="checkout-fields"><label>Full name<input id="profileName" type="text" placeholder="Your name" autocomplete="name"></label><label>Mobile number<input id="profilePhone" type="tel" placeholder="10-digit mobile number" autocomplete="tel"></label><label>Delivery address<textarea id="profileAddress" rows="2" placeholder="House / street"></textarea></label><div class="profile-grid"><label>City<input id="profileCity" type="text" placeholder="City"></label><label>State<input id="profileState" type="text" placeholder="State"></label><label>PIN code<input id="profilePincode" type="text" inputmode="numeric" maxlength="6" placeholder="PIN code"></label></div><button class="btn primary full" type="submit">Save my details</button></form>
+      <div class="account-orders"><span class="eyebrow dark">MY ORDERS</span><div id="ordersList" class="orders-list"><p class="modal-note">Loading orders…</p></div><a class="btn secondary full account-page-link" href="orders.html">Open full order history</a><a class="text-button admin-link" href="admin-orders.html">Store order management</a></div><button class="btn secondary full" id="signOutBtn" type="button">Sign out</button><p class="form-message" id="accountMessage" role="status"></p>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="cartModal" hidden>
+    <div class="modal-card wide" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <button class="modal-close" data-close="cartModal" type="button" aria-label="Close">×</button><span class="eyebrow dark">YOUR BAG</span><h2 id="cartTitle">Your selected pieces</h2><p class="modal-note">Confirm sizes and availability with us if you are unsure before payment.</p><div id="cartItems" class="cart-items"></div><div class="cart-total"><span>Total</span><strong id="cartTotal">₹0</strong></div>
+      <div class="checkout-fields"><label>Full name<input id="customerName" type="text" placeholder="Your name" autocomplete="name"></label><label>Mobile number<input id="customerPhone" type="tel" placeholder="10-digit mobile number" autocomplete="tel"></label><label>Delivery address<textarea id="customerAddress" rows="3" placeholder="House / street / city / PIN"></textarea></label></div>
+      <div class="checkout-actions"><button class="btn primary full" id="payBtn" type="button">Pay securely with Razorpay</button><button class="btn secondary full" id="whatsappCartBtn" type="button">Order this bag on WhatsApp</button></div><p class="form-message" id="checkoutMessage" role="status"></p><small class="legal-note">Secure payment opens Razorpay Checkout. Sign-in is required for payment and order history.</small>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="logo.svg" alt="Lakhnavi Chikankari"><p>Handmade women’s kurtis with a colourful Lakhnavi touch.</p></div>
+      <div><h3>Collections</h3><a href="#collection">Shop all</a><a href="#collection">Pastels</a><a href="#collection">Bright colours</a><a href="product.html?id=p1">Featured product</a></div>
+      <div><h3>Lakhnavi</h3><a href="about.html">Our story</a><a href="care-guide.html">Care guide</a><a href="contact.html">Contact us</a><a href="orders.html">My orders</a></div>
+      <div><h3>Shopping help</h3><p>For sizes, colours, availability and delivery information, speak with us directly before ordering.</p><a class="footer-chat" href="https://wa.me/919899551923" target="_blank" rel="noopener">Chat on WhatsApp →</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Lakhnavi Chikankari</span><span>Made with care in India</span></div>
+  </footer>
+  <a class="floating-chat" href="https://wa.me/919899551923?text=Hello%20Lakhnavi%20Chikankari%2C%20I%20would%20like%20help%20with%20the%20collection." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp"><span aria-hidden="true">◉</span> Chat</a>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="products.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
