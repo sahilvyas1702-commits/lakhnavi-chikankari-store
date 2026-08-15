@@ -1,23 +1,27 @@
-const PRODUCTS = require('./_products');
+import { PRODUCTS } from './_products.js';
 
-const SUPABASE_URL = process.env.SUPABASE_URL || 'https://tmuzndpbjvmtcuwmneow.supabase.co';
+const DEFAULT_SUPABASE_URL = 'https://tmuzndpbjvmtcuwmneow.supabase.co';
 
-exports.handler = async event => {
-  if (event.httpMethod !== 'POST') return json(405, { error: 'Method not allowed' });
+export async function onRequest(context) {
+  const { request, env } = context;
+  if (request.method !== 'POST') return json(405, { error: 'Method not allowed' });
 
   try {
-    const keyId = process.env.RAZORPAY_KEY_ID;
-    const keySecret = process.env.RAZORPAY_KEY_SECRET;
-    const supabaseSecret = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const keyId = env.RAZORPAY_KEY_ID;
+    const keySecret = env.RAZORPAY_KEY_SECRET;
+    const supabaseSecret = env.SUPABASE_SECRET_KEY || env.SUPABASE_SERVICE_ROLE_KEY;
+    const supabaseUrl = env.SUPABASE_URL || DEFAULT_SUPABASE_URL;
     if (!keyId || !keySecret) return json(503, { error: 'Secure payment is not configured yet.' });
     if (!supabaseSecret) return json(503, { error: 'Customer verification is not configured yet.' });
 
-    const user = await authenticatedUser(event, supabaseSecret);
+    const user = await authenticatedUser(request, supabaseUrl, supabaseSecret);
     if (!user) return json(401, { error: 'Sign in again before starting payment.' });
 
-    const body = JSON.parse(event.body || '{}');
+    const body = await request.json().catch(() => ({}));
     const items = Array.isArray(body.items) ? body.items : [];
-    if (!items.length || items.length > 20) return json(400, { error: 'Your bag is empty or contains too many lines.' });
+    if (!items.length || items.length > 20) {
+      return json(400, { error: 'Your bag is empty or contains too many lines.' });
+    }
 
     let amount = 0;
     const normalizedItems = [];
@@ -37,7 +41,7 @@ exports.handler = async event => {
     const razorpayResponse = await fetch('https://api.razorpay.com/v1/orders', {
       method: 'POST',
       headers: {
-        Authorization: `Basic ${Buffer.from(`${keyId}:${keySecret}`).toString('base64')}`,
+        Authorization: `Basic ${btoa(`${keyId}:${keySecret}`)}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -49,8 +53,12 @@ exports.handler = async event => {
     });
 
     const data = await razorpayResponse.json().catch(() => ({}));
-    if (razorpayResponse.status === 401) return json(502, { error: 'Payment authentication failed on the server.' });
-    if (!razorpayResponse.ok) return json(502, { error: data.error?.description || 'Could not create a payment order.' });
+    if (razorpayResponse.status === 401) {
+      return json(502, { error: 'Payment authentication failed on the server.' });
+    }
+    if (!razorpayResponse.ok) {
+      return json(502, { error: data.error?.description || 'Could not create a payment order.' });
+    }
 
     return json(200, {
       orderId: data.id,
@@ -63,12 +71,12 @@ exports.handler = async event => {
     console.error('create-order error:', error);
     return json(500, { error: 'Server error while creating the payment order.' });
   }
-};
+}
 
-async function authenticatedUser(event, supabaseSecret) {
-  const token = String(event.headers.authorization || event.headers.Authorization || '').replace(/^Bearer\s+/i, '');
+async function authenticatedUser(request, supabaseUrl, supabaseSecret) {
+  const token = String(request.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '');
   if (!token) return null;
-  const response = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+  const response = await fetch(`${supabaseUrl}/auth/v1/user`, {
     headers: { apikey: supabaseSecret, Authorization: `Bearer ${token}` }
   });
   const user = await response.json().catch(() => ({}));
@@ -76,9 +84,8 @@ async function authenticatedUser(event, supabaseSecret) {
 }
 
 function json(statusCode, body) {
-  return {
-    statusCode,
-    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
-    body: JSON.stringify(body)
-  };
+  return new Response(JSON.stringify(body), {
+    status: statusCode,
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
+  });
 }

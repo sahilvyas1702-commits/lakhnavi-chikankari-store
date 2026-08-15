@@ -1,5 +1,5 @@
-// This file is server-only. Never trust catalogue prices sent by the browser.
-module.exports = {
+// Server-only product catalogue. Never trust prices sent by the browser.
+export const PRODUCTS = {
   p1: { name: 'Ivory Hand-Embroidered Kurti', price: 1499 },
   p2: { name: 'Sunshine Yellow Chikankari', price: 1699 },
   p3: { name: 'Pastel Blue & Peach Collection', price: 1799 },

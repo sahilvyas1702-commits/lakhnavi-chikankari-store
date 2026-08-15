@@ -1,13 +1,13 @@
-const crypto = require('crypto');
-const PRODUCTS = require('./_products');
+import { PRODUCTS } from './_products.js';
 
-const SUPABASE_URL = process.env.SUPABASE_URL || 'https://tmuzndpbjvmtcuwmneow.supabase.co';
+const DEFAULT_SUPABASE_URL = 'https://tmuzndpbjvmtcuwmneow.supabase.co';
 
-exports.handler = async event => {
-  if (event.httpMethod !== 'POST') return json(405, { error: 'Method not allowed' });
+export async function onRequest(context) {
+  const { request, env } = context;
+  if (request.method !== 'POST') return json(405, { error: 'Method not allowed' });
 
   try {
-    const body = JSON.parse(event.body || '{}');
+    const body = await request.json().catch(() => ({}));
     const {
       razorpay_order_id: razorpayOrderId,
       razorpay_payment_id: razorpayPaymentId,
@@ -19,9 +19,10 @@ exports.handler = async event => {
       return json(400, { verified: false, error: 'Missing payment details.' });
     }
 
-    const razorpayKeyId = process.env.RAZORPAY_KEY_ID;
-    const razorpaySecret = process.env.RAZORPAY_KEY_SECRET;
-    const supabaseSecret = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const razorpayKeyId = env.RAZORPAY_KEY_ID;
+    const razorpaySecret = env.RAZORPAY_KEY_SECRET;
+    const supabaseSecret = env.SUPABASE_SECRET_KEY || env.SUPABASE_SERVICE_ROLE_KEY;
+    const supabaseUrl = env.SUPABASE_URL || DEFAULT_SUPABASE_URL;
     if (!razorpayKeyId || !razorpaySecret) {
       return json(500, { verified: false, error: 'Razorpay is not configured on the server.' });
     }
@@ -29,27 +30,18 @@ exports.handler = async event => {
       return json(500, { verified: false, error: 'Order storage is not configured on the server.' });
     }
 
-    const expectedSignature = crypto
-      .createHmac('sha256', razorpaySecret)
-      .update(`${razorpayOrderId}|${razorpayPaymentId}`)
-      .digest('hex');
-
-    const expectedBuffer = Buffer.from(expectedSignature, 'utf8');
-    const receivedBuffer = Buffer.from(String(razorpaySignature), 'utf8');
-    if (expectedBuffer.length !== receivedBuffer.length || !crypto.timingSafeEqual(expectedBuffer, receivedBuffer)) {
+    const expectedSignature = await hmacSha256Hex(razorpaySecret, `${razorpayOrderId}|${razorpayPaymentId}`);
+    if (!safeEqualHex(expectedSignature, String(razorpaySignature))) {
       return json(400, { verified: false, error: 'Payment signature verification failed.' });
     }
 
-    const accessToken = String(event.headers.authorization || event.headers.Authorization || '').replace(/^Bearer\s+/i, '');
+    const accessToken = String(request.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '');
     if (!accessToken) {
       return json(401, { verified: false, error: 'Sign in again before verifying payment.' });
     }
 
-    const userResponse = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
-      headers: {
-        apikey: supabaseSecret,
-        Authorization: `Bearer ${accessToken}`
-      }
+    const userResponse = await fetch(`${supabaseUrl}/auth/v1/user`, {
+      headers: { apikey: supabaseSecret, Authorization: `Bearer ${accessToken}` }
     });
     const user = await userResponse.json().catch(() => ({}));
     if (!userResponse.ok || !user.id) {
@@ -69,7 +61,7 @@ exports.handler = async event => {
     }
     const totalAmount = normalizedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-    const razorpayAuth = Buffer.from(`${razorpayKeyId}:${razorpaySecret}`).toString('base64');
+    const razorpayAuth = btoa(`${razorpayKeyId}:${razorpaySecret}`);
     const razorpayResponse = await fetch(`https://api.razorpay.com/v1/orders/${encodeURIComponent(razorpayOrderId)}`, {
       headers: { Authorization: `Basic ${razorpayAuth}` }
     });
@@ -107,7 +99,7 @@ exports.handler = async event => {
       updated_at: new Date().toISOString()
     };
 
-    const databaseResponse = await fetch(`${SUPABASE_URL}/rest/v1/orders?on_conflict=razorpay_order_id`, {
+    const databaseResponse = await fetch(`${supabaseUrl}/rest/v1/orders?on_conflict=razorpay_order_id`, {
       method: 'POST',
       headers: {
         apikey: supabaseSecret,
@@ -137,7 +129,27 @@ exports.handler = async event => {
     console.error('verify-payment error:', error);
     return json(500, { verified: false, error: 'Could not verify payment.' });
   }
-};
+}
+
+async function hmacSha256Hex(secret, message) {
+  const enc = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    'raw',
+    enc.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const signature = await crypto.subtle.sign('HMAC', key, enc.encode(message));
+  return Array.from(new Uint8Array(signature)).map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+function safeEqualHex(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
 
 function normalizeItems(items) {
   if (!Array.isArray(items)) return [];
@@ -157,12 +169,8 @@ function cleanText(value, maximumLength) {
 }
 
 function json(statusCode, body) {
-  return {
-    statusCode,
-    headers: {
-      'Content-Type': 'application/json',
-      'Cache-Control': 'no-store'
-    },
-    body: JSON.stringify(body)
-  };
+  return new Response(JSON.stringify(body), {
+    status: statusCode,
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
+  });
 }

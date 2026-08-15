@@ -1,7 +1,0 @@
-.env
-.env.*
-!.env.example
-node_modules/
-
-# Local Netlify folder
-.netlify
