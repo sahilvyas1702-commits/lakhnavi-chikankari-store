@@ -23,11 +23,15 @@ export async function onRequest(context) {
       return json(400, { error: 'Your bag is empty or contains too many lines.' });
     }
 
+    // Validate against the live catalogue when it is reachable, otherwise fall
+    // back to the static mirror so checkout still works during deployment.
+    const catalog = (await fetchCatalog(supabaseUrl, supabaseSecret)) || PRODUCTS;
+
     let amount = 0;
     const normalizedItems = [];
     for (const item of items) {
       const id = String(item?.id || '');
-      const product = PRODUCTS[id];
+      const product = catalog[id];
       const quantity = Math.max(1, Math.min(10, Number(item?.quantity) || 1));
       if (!product) return json(400, { error: `A product in your bag is no longer available (${id}).` });
       amount += product.price * quantity;
@@ -70,6 +74,22 @@ export async function onRequest(context) {
   } catch (error) {
     console.error('create-order error:', error);
     return json(500, { error: 'Server error while creating the payment order.' });
+  }
+}
+
+async function fetchCatalog(supabaseUrl, supabaseSecret) {
+  try {
+    const response = await fetch(`${supabaseUrl}/rest/v1/products?select=id,name,price&active=eq.true&order=sort_order`, {
+      headers: { apikey: supabaseSecret, Authorization: `Bearer ${supabaseSecret}` }
+    });
+    if (!response.ok) return null;
+    const rows = await response.json();
+    if (!Array.isArray(rows) || !rows.length) return null;
+    const catalog = {};
+    rows.forEach(row => { catalog[row.id] = { name: row.name, price: Number(row.price) || 0 }; });
+    return catalog;
+  } catch (_error) {
+    return null;
   }
 }
 

@@ -1,8 +1,11 @@
-(() => {
+(async () => {
   const phone = (window.SHOP_PHONE && window.SHOP_PHONE.wa) || '919899551923';
   const products = window.PRODUCTS || {};
   const guidance = window.PRODUCT_GUIDANCE || {};
   const requestedId = new URLSearchParams(window.location.search).get('id');
+
+  if (typeof window.loadShopCatalog === 'function') await window.loadShopCatalog();
+
   const productId = products[requestedId] ? requestedId : Object.keys(products)[0];
   const product = products[productId];
   let selectedSize = '';

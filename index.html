@@ -245,7 +245,7 @@
         <button class="account-tab" type="button" role="tab" data-account-tab="profile" aria-selected="false">Profile &amp; details</button>
       </div>
       <div class="account-pane" role="tabpanel" data-account-pane="orders">
-        <div class="account-orders"><span class="eyebrow dark">MY ORDERS</span><div id="ordersList" class="orders-list"><p class="modal-note">Loading orders…</p></div><a class="btn secondary full account-page-link" href="orders.html">Open full order history</a><a class="text-button admin-link" href="admin-orders.html">Store order management</a></div>
+        <div class="account-orders"><span class="eyebrow dark">MY ORDERS</span><div id="ordersList" class="orders-list"><p class="modal-note">Loading orders…</p></div><a class="btn secondary full account-page-link" href="orders.html">Open full order history</a><a class="text-button admin-link" href="admin-orders.html">Store order management</a><a class="text-button admin-link" href="admin-products.html">Product management</a></div>
       </div>
       <div class="account-pane" role="tabpanel" data-account-pane="profile" hidden>
         <form id="profileForm" class="checkout-fields"><label>Full name<input id="profileName" type="text" placeholder="Your name" autocomplete="name"></label><label>Mobile number<input id="profilePhone" type="tel" placeholder="10-digit mobile number" autocomplete="tel"></label><label>Delivery address<textarea id="profileAddress" rows="2" placeholder="House / street"></textarea></label><div class="profile-grid"><label>City<input id="profileCity" type="text" placeholder="City"></label><label>State<input id="profileState" type="text" placeholder="State"></label><label>PIN code<input id="profilePincode" type="text" inputmode="numeric" maxlength="6" placeholder="PIN code"></label></div><button class="btn primary full" type="submit">Save my details</button></form>
@@ -306,6 +306,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
   <script src="products.js"></script>
+  <script src="catalog-loader.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

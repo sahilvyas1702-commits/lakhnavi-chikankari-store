@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#2c3e6b"><meta name="robots" content="noindex,nofollow">
+  <title>Product management | Lakhnavi Chikankari</title><link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><script src="page-shell.js" defer></script>
+</head>
+<body class="inner-page admin-page"><div id="pageHeader"></div><main id="main">
+  <section class="simple-hero account-hero page-width"><span class="eyebrow dark">STORE CATALOGUE</span><h1>Product management</h1><p>A database-protected workspace for adding, editing and photographing the kurtis shown in the shop. Changes appear on the storefront immediately.</p></section>
+  <section class="admin-workspace page-width">
+    <div class="admin-gate" id="adminGate"><span class="account-entry-icon large" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v5c0 5 3.2 8.6 8 10 4.8-1.4 8-5 8-10V6l-8-3Z"/><path d="m9 12 2 2 4-5"/></svg></span><h2>Administrator sign-in required</h2><p>Sign in with an account privately approved in the store database. Customer accounts cannot view or change the catalogue.</p><a class="btn primary" href="index.html?open=account">Sign in securely</a></div>
+    <div id="adminPanel" hidden>
+      <div class="admin-heading"><div><span class="eyebrow dark">AUTHORIZED ACCOUNT</span><h2 id="adminEmail">Product administrator</h2></div><div><button class="btn primary" id="addProductBtn" type="button">Add product</button><button class="btn secondary" id="adminRefreshBtn" type="button">Refresh</button></div></div>
+      <p class="form-message" id="adminStatus" role="status"></p>
+      <div class="product-list" id="productList"></div>
+    </div>
+  </section>
+  <section class="admin-editor page-width" id="productEditor" hidden>
+    <form id="productForm" novalidate>
+      <input type="hidden" id="peId">
+      <div class="admin-heading"><div><span class="eyebrow dark">CATALOGUE ENTRY</span><h2 id="peTitle">Add product</h2></div><div><button class="btn secondary" id="peCancelBtn" type="button">Close editor</button></div></div>
+      <div class="editor-fields">
+        <div class="editor-photo">
+          <label>Product photo<input id="pePhoto" type="file" accept="image/jpeg,image/png,image/webp"></label>
+          <div class="photo-preview" id="pePreview" hidden><img id="pePreviewImg" alt="Product photo preview"></div>
+          <p class="form-message">Photos are compressed on upload and stored privately in the product catalogue.</p>
+        </div>
+        <label>Product name<input id="peName" type="text" maxlength="120" placeholder="e.g. Indigo Hand-Embroidered Kurti" required></label>
+        <div class="editor-row">
+          <label>Price (₹)<input id="pePrice" type="number" min="0" step="1" required></label>
+          <label>Compare-at price (₹, optional)<input id="peCompareAt" type="number" min="0" step="1"></label>
+          <label>Rating (0–5)<input id="peRating" type="number" min="0" max="5" step="0.1"></label>
+          <label>Reviews count<input id="peReviews" type="number" min="0" step="1"></label>
+        </div>
+        <div class="editor-row">
+          <label>Badge (optional)<input id="peBadge" type="text" maxlength="30" placeholder="e.g. New, Bestseller"></label>
+          <label>SKU<input id="peSku" type="text" maxlength="40" placeholder="e.g. LC-IN-111"></label>
+          <label>Sort order<input id="peSortOrder" type="number" min="0" step="1"></label>
+          <label class="editor-check"><span>Active in shop</span><input id="peActive" type="checkbox"></label>
+        </div>
+        <fieldset class="editor-categories"><legend>Category (drives the shop filters)</legend>
+          <label><input id="peCatPastel" type="checkbox" value="pastel"> Pastel</label>
+          <label><input id="peCatBright" type="checkbox" value="bright"> Bright</label>
+          <label><input id="peCatClassic" type="checkbox" value="classic"> Classic</label>
+        </fieldset>
+        <label>Image URL (used if no photo is uploaded)<input id="peImageUrl" type="text" placeholder="https://... or images/product-1.jpg?v=4"></label>
+        <div class="editor-row">
+          <label>Colour<input id="peColour" type="text" maxlength="60"></label>
+          <label>Craft<input id="peCraft" type="text" maxlength="120"></label>
+        </div>
+        <div class="editor-row">
+          <label>Fabric<input id="peFabric" type="text" maxlength="160"></label>
+          <label>Fit<input id="peFit" type="text" maxlength="80"></label>
+        </div>
+        <label>Occasion<input id="peOccasion" type="text" maxlength="120"></label>
+        <label>Description<textarea id="peDescription" rows="3" maxlength="400"></textarea></label>
+        <label>Details (one per line)<textarea id="peDetails" rows="4" maxlength="600" placeholder="Soft indigo palette&#10;Embroidered neckline and front panel"></textarea></label>
+      </div>
+      <div class="editor-actions"><button class="btn primary" type="submit">Save product</button><button class="btn secondary" id="peDeleteBtn" type="button" hidden>Delete product</button><p class="form-message" id="peMessage" role="status"></p></div>
+    </form>
+  </section>
+</main><div id="pageFooter"></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="admin-products.js"></script></body></html>

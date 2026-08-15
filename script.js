@@ -279,8 +279,23 @@ const filterDrawer = document.getElementById('filterDrawer');
 const filterBackdrop = document.getElementById('filterBackdrop');
 const filterOpenButton = document.getElementById('filterOpenBtn');
 const maxPriceInput = document.getElementById('maxPrice');
-const catalogueMaximumPrice = Math.max(...Object.values(products).map(product => product.price));
-const catalogueMinimumPrice = Math.min(...Object.values(products).map(product => product.price));
+let catalogueMaximumPrice = Math.max(...Object.values(products).map(product => product.price));
+let catalogueMinimumPrice = Math.min(...Object.values(products).map(product => product.price));
+
+function applyCatalogueRanges() {
+  catalogueMaximumPrice = Math.max(...Object.values(products).map(product => product.price));
+  catalogueMinimumPrice = Math.min(...Object.values(products).map(product => product.price));
+  [maxPriceInput, sidebarMaxPriceInput].forEach(input => {
+    if (!input) return;
+    input.min = String(catalogueMinimumPrice);
+    input.max = String(catalogueMaximumPrice);
+    if (activeMaxPrice === Number.POSITIVE_INFINITY || Number(input.value) > catalogueMaximumPrice) {
+      input.value = String(catalogueMaximumPrice);
+    }
+  });
+  updatePriceOutput();
+  updateSidebarPriceOutput();
+}
 
 function updatePriceOutput() {
   const output = document.getElementById('maxPriceOutput');
@@ -318,12 +333,7 @@ function applySidebarPrice() {
   updateProductResults();
 }
 
-if (sidebarMaxPriceInput) {
-  sidebarMaxPriceInput.min = String(catalogueMinimumPrice);
-  sidebarMaxPriceInput.max = String(catalogueMaximumPrice);
-  sidebarMaxPriceInput.value = String(catalogueMaximumPrice);
-}
-updateSidebarPriceOutput();
+applyCatalogueRanges();
 
 maxPriceInput?.addEventListener('input', () => {
   if (sidebarMaxPriceInput) sidebarMaxPriceInput.value = maxPriceInput.value;
@@ -956,6 +966,16 @@ if (heroSlides.length) {
 
 renderProductGrid();
 updateCartUI();
+
+// Refresh the grid from the Supabase catalogue when it is available.
+if (typeof window.loadShopCatalog === 'function') {
+  window.loadShopCatalog().then(dynamic => {
+    if (dynamic) {
+      applyCatalogueRanges();
+      renderProductGrid();
+    }
+  });
+}
 
 // Allow navigation from secondary pages to open account or bag directly.
 const entryAction = new URLSearchParams(window.location.search).get('open');

@@ -38,7 +38,7 @@
         <a href="contact.html">Contact</a>
         <a href="orders.html">My orders</a>
         <span class="divider" aria-hidden="true"></span>
-        <a href="admin-orders.html">Store order management</a>
+        <a href="admin-orders.html">Store order management</a><a href="admin-products.html">Product management</a>
       </nav>`;
   }
 
