@@ -223,10 +223,7 @@
     const message = document.getElementById('peMessage');
     message.textContent = 'Deleting product…';
     try {
-      if (product.image && product.image.startsWith(storagePublicPrefix())) {
-        const path = decodeURIComponent(product.image.slice(storagePublicPrefix().length));
-        await client.storage.from('product-images').remove([path]);
-      }
+      await removeStoredImage(product.image);
       const { error } = await client.from('products').delete().eq('id', id);
       if (error) throw new Error(error.message || 'Could not delete the product.');
       status.textContent = 'Product deleted.';
@@ -250,8 +247,14 @@
     await loadProducts();
   }
 
-  function storagePublicPrefix() {
-    return client.storage.from('product-images').getPublicUrl('').data.publicUrl;
+  async function removeStoredImage(image) {
+    if (!image) return;
+    const marker = '/object/public/product-images/';
+    const index = image.indexOf(marker);
+    if (index < 0) return;
+    const path = decodeURIComponent(image.slice(index + marker.length)).replace(/^\/+/, '');
+    if (!path) return;
+    await client.storage.from('product-images').remove([path]);
   }
 
   async function downscaleFile(file) {
