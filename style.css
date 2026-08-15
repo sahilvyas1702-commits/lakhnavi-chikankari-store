@@ -407,7 +407,7 @@ footer { color: #cfc8b4; background: var(--indigo-2); }
 
 /* ---------- Inner pages: shared ---------- */
 .inner-page { background: var(--ivory); }
-.inner-page .site-header { position: absolute; }
+.inner-page .site-header { position: absolute; background: var(--indigo-2); }
 .page-header { position: absolute; }
 .breadcrumbs { padding-top: 118px; display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 12px; }
 .breadcrumbs a:hover { color: var(--gold-deep); }
