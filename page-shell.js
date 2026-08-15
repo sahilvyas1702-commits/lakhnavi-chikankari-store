@@ -13,6 +13,7 @@
         <a class="brand" href="index.html" aria-label="Lakhnavi Chikankari home"><img src="logo.svg" alt="Lakhnavi Chikankari"></a>
         <nav id="nav" aria-label="Primary navigation">
           <a href="index.html#collection">Shop</a>
+          <a href="index.html#collections">Collections</a>
           <a href="about.html">Our story</a>
           <a href="care-guide.html">Care guide</a>
           <a href="contact.html">Contact</a>
@@ -36,7 +37,7 @@
     footerTarget.innerHTML = `
       <footer>
         <div class="footer-grid">
-          <div class="footer-brand"><img src="logo.svg" alt="Lakhnavi Chikankari"><p>Handmade women’s kurtis with a colourful Lakhnavi touch.</p></div>
+          <div class="footer-brand"><img src="logo.svg" alt="Lakhnavi Chikankari"><p>Hand-embroidered women’s kurtis with a colourful Lakhnavi touch.</p></div>
           <div><h3>Shop</h3><a href="index.html#collection">All kurtis</a><a href="product.html?id=p1">Featured piece</a><a href="orders.html">My orders</a><a href="index.html?open=cart">Shopping bag</a></div>
           <div><h3>About</h3><a href="about.html">Our story</a><a href="care-guide.html">Care guide</a><a href="contact.html">Contact us</a><a href="admin-orders.html">Order management</a></div>
           <div><h3>Personal help</h3><p>Ask us about sizes, colours, availability, care and delivery before ordering.</p><a class="footer-chat" href="https://wa.me/${phone}" target="_blank" rel="noopener">Chat on WhatsApp →</a><a class="footer-phone" href="tel:+91${phoneDisplay.replace(/\s/g, '')}">Call ${phoneDisplay}</a></div>
