@@ -1,6 +1,7 @@
 (() => {
   const money = value => `₹${Number(value || 0).toLocaleString('en-IN')}`;
   const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]));
+  const phone = (window.SHOP_PHONE && window.SHOP_PHONE.wa) || '919899551923';
   const config = window.SHOP_CONFIG || {};
   const configured = config.SUPABASE_URL && config.SUPABASE_ANON_KEY && !config.SUPABASE_URL.includes('YOUR-PROJECT') && !config.SUPABASE_ANON_KEY.includes('YOUR-');
   const client = configured && window.supabase?.createClient ? window.supabase.createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY) : null;
@@ -56,7 +57,7 @@
       <ul>${items.map(item => `<li><span>${escapeHtml(item.name || item.id)}</span><b>× ${escapeHtml(item.quantity || 1)}</b></li>`).join('')}</ul>
       ${cancelled ? '<p class="cancelled-note">This order is marked cancelled. Contact the store if you need clarification.</p>' : `<ol class="order-progress">${steps.map((step, index) => `<li class="${index <= activeIndex ? 'complete' : ''}"><span></span><small>${escapeHtml(readableStatus(step))}</small></li>`).join('')}</ol>`}
       ${order.tracking_reference ? `<p class="tracking-line"><strong>Tracking / dispatch reference</strong><span>${escapeHtml(order.tracking_reference)}</span></p>` : ''}
-      <footer><span>Payment ID: ${escapeHtml(order.razorpay_payment_id || 'Not available')}</span><a href="https://wa.me/919899551923?text=${encodeURIComponent(`Hello Lakhnavi Chikankari, I need help with order #${order.id}.`)}" target="_blank" rel="noopener">Get help →</a></footer>
+      <footer><span>Payment ID: ${escapeHtml(order.razorpay_payment_id || 'Not available')}</span><a href="https://wa.me/${phone}?text=${encodeURIComponent(`Hello Lakhnavi Chikankari, I need help with order #${order.id}.`)}" target="_blank" rel="noopener">Get help →</a></footer>
     </article>`;
   }
 

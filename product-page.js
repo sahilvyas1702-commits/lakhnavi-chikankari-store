@@ -1,5 +1,5 @@
 (() => {
-  const phone = '919899551923';
+  const phone = (window.SHOP_PHONE && window.SHOP_PHONE.wa) || '919899551923';
   const products = window.PRODUCTS || {};
   const guidance = window.PRODUCT_GUIDANCE || {};
   const requestedId = new URLSearchParams(window.location.search).get('id');
@@ -10,6 +10,7 @@
 
   const money = value => `₹${Number(value || 0).toLocaleString('en-IN')}`;
   const escapeHtml = value => String(value || '').replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]));
+  const stars = rating => '★'.repeat(Math.round(Number(rating) || 0)) + '☆'.repeat(Math.max(0, 5 - Math.round(Number(rating) || 0)));
 
   if (!product) {
     document.getElementById('productTitle').textContent = 'Product not found';
@@ -23,7 +24,16 @@
   document.getElementById('productImage').alt = product.name;
   document.getElementById('productSku').textContent = product.sku;
   document.getElementById('productTitle').textContent = product.name;
-  document.getElementById('productPrice').textContent = money(product.price);
+  document.getElementById('productPrice').innerHTML = product.compareAt && Number(product.compareAt) > Number(product.price)
+    ? `${money(product.price)} <s class="compare-price">${money(product.compareAt)}</s>`
+    : money(product.price);
+  const ratingTarget = document.getElementById('productPrice');
+  const ratingLine = document.createElement('div');
+  ratingLine.className = 'detail-rating';
+  ratingLine.innerHTML = product.rating
+    ? `<span class="stars" aria-hidden="true">${stars(product.rating)}</span> <em>${Number(product.rating).toFixed(1)} · ${product.reviews || 0} reviews</em>`
+    : '';
+  ratingTarget.parentNode.insertBefore(ratingLine, ratingTarget.nextSibling);
   document.getElementById('productDescription').textContent = product.description;
   document.getElementById('productColour').textContent = product.colour;
   document.getElementById('productCraft').textContent = product.craft;
@@ -46,6 +56,24 @@
       option.setAttribute('aria-pressed', String(active));
     });
   }));
+
+  const sizeGuideModal = document.getElementById('sizeGuideModal');
+  const closeSizeGuide = () => {
+    if (!sizeGuideModal) return;
+    sizeGuideModal.hidden = true;
+    document.body.classList.remove('modal-open');
+  };
+  document.getElementById('sizeGuideBtn')?.addEventListener('click', () => {
+    if (!sizeGuideModal) return;
+    sizeGuideModal.hidden = false;
+    document.body.classList.add('modal-open');
+    sizeGuideModal.querySelector('.modal-close, button, a')?.focus();
+  });
+  sizeGuideModal?.querySelector('[data-close="sizeGuideModal"]')?.addEventListener('click', closeSizeGuide);
+  sizeGuideModal?.addEventListener('click', event => { if (event.target === sizeGuideModal) closeSizeGuide(); });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && sizeGuideModal && !sizeGuideModal.hidden) closeSizeGuide();
+  });
 
   function addToBag() {
     let cart = {};

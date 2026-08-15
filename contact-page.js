@@ -1,5 +1,6 @@
 document.getElementById('contactForm')?.addEventListener('submit', event => {
   event.preventDefault();
+  const phone = (window.SHOP_PHONE && window.SHOP_PHONE.wa) || '919899551923';
   const name = document.getElementById('contactName').value.trim();
   const mobile = document.getElementById('contactPhone').value.trim();
   const product = document.getElementById('contactProduct').value.trim();
@@ -10,6 +11,6 @@ document.getElementById('contactForm')?.addEventListener('submit', event => {
     return;
   }
   const message = [`Hello Lakhnavi Chikankari,`, `Name: ${name}`, `Mobile: ${mobile}`, product && `Product / SKU: ${product}`, `Question: ${question}`].filter(Boolean).join('\n');
-  window.open(`https://wa.me/919899551923?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
   status.textContent = 'WhatsApp opened with your enquiry.';
 });

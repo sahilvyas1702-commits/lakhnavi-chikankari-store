@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#6b1f3f">
+  <meta name="theme-color" content="#2c3e6b">
   <meta name="description" content="Detailed product information, care guidance and personal size assistance for Lakhnavi Chikankari kurtis.">
   <title>Product details | Lakhnavi Chikankari</title>
   <link rel="icon" href="logo.svg" type="image/svg+xml">
@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script src="page-shell.js" defer></script>
+  <script src="config.js"></script><script src="page-shell.js" defer></script>
 </head>
 <body class="inner-page">
   <div id="pageHeader"></div>
@@ -35,9 +35,14 @@
           <div><dt>Best for</dt><dd id="productOccasion"></dd></div>
         </dl>
 
-        <fieldset class="size-options"><legend>Preferred size for enquiry</legend><div id="sizeChoices" class="size-choice-list"></div><p id="sizeNote"></p></fieldset>
+        <fieldset class="size-options"><legend>Preferred size for enquiry</legend><div id="sizeChoices" class="size-choice-list"></div><p id="sizeNote"></p><button class="text-button size-guide-action" id="sizeGuideBtn" type="button">View the size guide</button></fieldset>
         <ul class="product-detail-list" id="productDetails"></ul>
         <div class="detail-actions"><button class="btn primary" id="detailAddBtn" type="button">Add to bag</button><a class="btn secondary" id="detailWhatsAppBtn" href="#" target="_blank" rel="noopener">Confirm on WhatsApp</a></div>
+        <ul class="trust-chips">
+          <li>Personal size assistance</li>
+          <li>COD on select orders</li>
+          <li>Secure Razorpay payment</li>
+        </ul>
         <p class="form-message" id="detailMessage" role="status"></p>
       </div>
     </section>
@@ -52,6 +57,26 @@
   </main>
   <div id="pageFooter"></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="modal-backdrop" id="sizeGuideModal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="sizeGuideTitle">
+      <button class="modal-close" data-close="sizeGuideModal" type="button" aria-label="Close size guide">×</button>
+      <span class="eyebrow dark">SIZE GUIDE</span><h2 id="sizeGuideTitle">Finding your fit</h2>
+      <p class="modal-note">Standard garment measurements in inches. The exact fit depends on the piece and how you like your kurtis to sit.</p>
+      <table class="size-guide-table">
+        <thead><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hip</th><th>Length</th></tr></thead>
+        <tbody>
+          <tr><td>S</td><td>32–34″</td><td>26–28″</td><td>34–36″</td><td>38″</td></tr>
+          <tr><td>M</td><td>34–36″</td><td>28–30″</td><td>36–38″</td><td>39″</td></tr>
+          <tr><td>L</td><td>36–38″</td><td>30–32″</td><td>38–40″</td><td>40″</td></tr>
+          <tr><td>XL</td><td>38–41″</td><td>32–35″</td><td>40–43″</td><td>41″</td></tr>
+          <tr><td>XXL</td><td>41–44″</td><td>35–38″</td><td>43–46″</td><td>42″</td></tr>
+        </tbody>
+      </table>
+      <p class="size-guide-note">Garment measurements for the specific piece are confirmed personally with you before dispatch — message us with your height, weight or a similar fitted garment and we will recommend the right size.</p>
+    </div>
+  </div>
+
   <script src="products.js"></script>
   <script src="product-page.js"></script>
 </body>

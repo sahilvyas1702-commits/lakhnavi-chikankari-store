@@ -1,6 +1,6 @@
 const PRODUCTS = require('./_products');
 
-const SUPABASE_URL = process.env.SUPABASE_URL || 'https://usachjujxgnkcqwtbqsq.supabase.co';
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://tmuzndpbjvmtcuwmneow.supabase.co';
 
 exports.handler = async event => {
   if (event.httpMethod !== 'POST') return json(405, { error: 'Method not allowed' });

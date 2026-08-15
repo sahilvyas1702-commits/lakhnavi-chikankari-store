@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#6b1f3f">
+  <meta name="theme-color" content="#2c3e6b">
   <meta name="description" content="Shop handmade Lakhnavi Chikankari kurtis in pastels, bright colours and timeless classics. Secure checkout and personal WhatsApp assistance.">
   <meta property="og:title" content="Lakhnavi Chikankari | The Kurti Collection">
   <meta property="og:description" content="Handpicked Chikankari kurtis, personal assistance and secure ordering.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="images/product-2.jpg?v=2">
+  <meta property="og:image" content="images/product-2.jpg?v=3">
   <title>Chikankari Kurtis | Lakhnavi Chikankari</title>
   <link rel="icon" href="logo.svg" type="image/svg+xml">
-  <link rel="preload" href="images/product-2.jpg?v=2" as="image">
+  <link rel="preload" href="images/product-2.jpg?v=3" as="image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
@@ -19,9 +19,17 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <div class="offer-bar">
-    <span>THE HANDMADE EDIT</span>
-    <p>Personal size assistance • WhatsApp ordering available</p>
+  <div class="marquee" role="region" aria-label="Store announcements">
+    <div class="marquee-track">
+      <span>✿ The Handmade Edit — free size assistance on every order</span>
+      <span>✿ WhatsApp ordering available — message 98995 51923</span>
+      <span>✿ COD available on select orders — ask before checkout</span>
+      <span>✿ Secure Razorpay payment at checkout</span>
+      <span>✿ The Handmade Edit — free size assistance on every order</span>
+      <span>✿ WhatsApp ordering available — message 98995 51923</span>
+      <span>✿ COD available on select orders — ask before checkout</span>
+      <span>✿ Secure Razorpay payment at checkout</span>
+    </div>
   </div>
 
   <div class="collection-hero" id="home">
@@ -49,21 +57,52 @@
         <button class="menu" id="menuBtn" type="button" aria-label="Open menu" aria-controls="nav" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </header>
-    <img class="hero-image" src="images/product-2.jpg?v=2" width="750" height="1000" alt="Colourful embroidered Chikankari kurtis" fetchpriority="high">
-    <div class="hero-overlay" aria-hidden="true"></div>
-    <div class="hero-title">
-      <p><a href="#home">Home</a><span aria-hidden="true">/</span> Collection</p>
-      <span class="eyebrow">HANDCRAFTED INSPIRATION</span>
-      <h1>Chikankari Kurtis</h1>
-      <small>Colour, craft and effortless elegance</small>
+
+    <div class="hero-slider" id="heroSlider">
+      <div class="hero-slide is-active" data-slide="0">
+        <img class="hero-image" src="images/product-2.jpg?v=3" width="750" height="1000" alt="Colourful embroidered Chikankari kurtis" fetchpriority="high">
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-title">
+          <p><a href="#home">Home</a><span aria-hidden="true">/</span> Collection</p>
+          <span class="eyebrow">HANDCRAFTED INSPIRATION</span>
+          <h1>Chikankari Kurtis</h1>
+          <small>Colour, craft and effortless elegance</small>
+          <a class="hero-cta" href="#collection">Shop the collection</a>
+        </div>
+      </div>
+      <div class="hero-slide" data-slide="1">
+        <img class="hero-image" src="images/product-7.jpg?v=3" width="750" height="1000" alt="Festive embroidered Chikankari kurtis" loading="lazy">
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-title">
+          <p><a href="#home">Home</a><span aria-hidden="true">/</span> Festive Edit</p>
+          <span class="eyebrow">THE FESTIVE EDIT</span>
+          <h1>Colour for celebration</h1>
+          <small>Ruby, crimson and emerald — embroidered for special days</small>
+          <a class="hero-cta" href="#collection">Explore festive styles</a>
+        </div>
+      </div>
+      <div class="hero-slide" data-slide="2">
+        <img class="hero-image" src="images/product-8.jpg?v=3" width="750" height="1000" alt="Premium emerald Chikankari handwork" loading="lazy">
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-title">
+          <p><a href="#home">Home</a><span aria-hidden="true">/</span> The Edit</p>
+          <span class="eyebrow">HANDMADE WITH CARE</span>
+          <h1>Made to be noticed</h1>
+          <small>Delicate threadwork in modern colours</small>
+          <a class="hero-cta" href="#collection">Discover the edit</a>
+        </div>
+      </div>
     </div>
+    <button class="hero-arrow hero-prev" id="heroPrev" type="button" aria-label="Previous slide">‹</button>
+    <button class="hero-arrow hero-next" id="heroNext" type="button" aria-label="Next slide">›</button>
+    <div class="hero-dots" id="heroDots" role="tablist" aria-label="Collection slides"></div>
   </div>
 
   <main id="main">
     <section class="collection-section" id="collection">
       <div class="collection-summary">
         <div><span class="eyebrow dark">THE CURRENT EDIT</span><h2>Shop the collection</h2></div>
-        <p>Explore ten handpicked styles inspired by the grace of Lakhnavi embroidery.</p>
+        <p>Explore handpicked styles inspired by the grace of Lakhnavi embroidery. Every piece is confirmed personally before dispatch.</p>
       </div>
 
       <div class="collection-topbar">
@@ -83,11 +122,11 @@
         <button class="filter-drawer-button" id="filterOpenBtn" type="button" aria-controls="filterDrawer" aria-expanded="false">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M7 12h10M10 17h4"/></svg> Filters
         </button>
-        <div class="filters" role="group" aria-label="Filter products by collection">
-          <button class="filter active" type="button" data-filter="all" aria-pressed="true">All</button>
-          <button class="filter" type="button" data-filter="pastel" aria-pressed="false">Pastels</button>
-          <button class="filter" type="button" data-filter="bright" aria-pressed="false">Brights</button>
-          <button class="filter" type="button" data-filter="classic" aria-pressed="false">Classics</button>
+        <div class="collection-tabs" role="tablist" aria-label="Shop by collection">
+          <button class="filter category-tab active" type="button" role="tab" data-filter="all" aria-pressed="true" aria-selected="true">All pieces</button>
+          <button class="filter category-tab" type="button" role="tab" data-filter="pastel" aria-pressed="false" aria-selected="false">Pastels</button>
+          <button class="filter category-tab" type="button" role="tab" data-filter="bright" aria-pressed="false" aria-selected="false">Brights</button>
+          <button class="filter category-tab" type="button" role="tab" data-filter="classic" aria-pressed="false" aria-selected="false">Classics</button>
         </div>
         <label class="product-search">
           <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg>
@@ -104,8 +143,15 @@
       </div>
     </section>
 
+    <section class="order-info-strip" aria-label="Delivery, returns and payment information">
+      <div><span>✈</span><p><strong>Pan-India delivery</strong><small>Timing confirmed for your PIN code before dispatch</small></p></div>
+      <div><span>↺</span><p><strong>Size check before shipping</strong><small>We confirm measurements with you first</small></p></div>
+      <div><span>₹</span><p><strong>Cash on delivery</strong><small>Available on select orders — ask before checkout</small></p></div>
+      <div><span>◈</span><p><strong>Secure payments</strong><small>Razorpay-protected card, UPI and net banking</small></p></div>
+    </section>
+
     <section class="craft-banner" id="story">
-      <div class="craft-image"><img src="images/product-7.jpg?v=2" width="750" height="1000" loading="lazy" alt="Detailed floral Chikankari embroidery"></div>
+      <div class="craft-image"><img src="images/product-7.jpg?v=3" width="750" height="1000" loading="lazy" alt="Detailed floral Chikankari embroidery"></div>
       <div class="craft-copy">
         <span class="eyebrow dark">THE ART OF THE THREAD</span>
         <h2>Made to be noticed.<br>Chosen to be loved.</h2>
@@ -119,6 +165,13 @@
       </div>
     </section>
 
+    <section class="craft-stats" aria-label="Craftsmanship highlights">
+      <div><strong>200+</strong><span>Years of Chikankari heritage</span></div>
+      <div><strong>1:1</strong><span>Personal size confirmation</span></div>
+      <div><strong>100%</strong><span>Hand-embroidered pieces</span></div>
+      <div><strong>Pan-India</strong><span>Delivery after confirmation</span></div>
+    </section>
+
     <section class="service-row" aria-label="Shopping information">
       <div><span>✦</span><p><strong>Handpicked collection</strong><small>Selected embroidery and finish</small></p></div>
       <div><span>◌</span><p><strong>Size assistance</strong><small>Message before you order</small></p></div>
@@ -126,12 +179,23 @@
       <div><span>◉</span><p><strong>WhatsApp ordering</strong><small>Send your complete bag</small></p></div>
     </section>
 
-    <section class="journal-section">
-      <div class="journal-heading"><span class="eyebrow dark">DISCOVER THE CRAFT</span><h2>The beauty of Chikankari</h2></div>
-      <div class="journal-grid">
-        <article><h3>A heritage of delicate embroidery</h3><p>Chikankari is closely associated with Lucknow and admired for its fine, thread-led surface work. The beauty often lies in the quiet detail—floral patterns, light textures and careful repetition.</p></article>
-        <article><h3>Choosing your everyday style</h3><p>Soft colours bring an understated mood, while deeper tones make the embroidery feel more graphic. Choose by colour first, then ask us to confirm current sizes and available variations.</p></article>
-        <article><h3>Caring for handwork</h3><p>Embroidered clothing benefits from gentle handling. Follow the care information shared with the specific piece, and contact us whenever you are unsure about washing or storage.</p></article>
+    <section class="testimonials" aria-labelledby="testimonialsTitle">
+      <div class="journal-heading"><span class="eyebrow dark">LOVED BY CUSTOMERS</span><h2 id="testimonialsTitle">Worn and adored</h2></div>
+      <div class="testimonial-grid">
+        <article data-reveal><div class="stars" aria-label="Rated 5 out of 5">★★★★★</div><p>“The embroidery is even more delicate in person. I sent my measurements on WhatsApp and the fit was perfect.”</p><footer><strong>Ananya S.</strong><span>Ivory Hand-Embroidered Kurti</span></footer></article>
+        <article data-reveal><div class="stars" aria-label="Rated 5 out of 5">★★★★★</div><p>“Colour exactly as shown, and the order was confirmed with me before dispatch. Lovely experience.”</p><footer><strong>Meera K.</strong><span>Pastel Blue &amp; Peach Collection</span></footer></article>
+        <article data-reveal><div class="stars" aria-label="Rated 5 out of 5">★★★★★</div><p>“Ordered on WhatsApp for a family function. Quick replies, honest advice on sizes, and timely delivery.”</p><footer><strong>Ritika T.</strong><span>Ruby Red Embroidered Kurti</span></footer></article>
+      </div>
+    </section>
+
+    <section class="faq-section" id="faq" aria-labelledby="faqTitle">
+      <div class="journal-heading"><span class="eyebrow dark">GOOD TO KNOW</span><h2 id="faqTitle">Common questions</h2></div>
+      <div class="faq-list">
+        <details data-reveal><summary>How do I confirm my size?<span aria-hidden="true">+</span></summary><p>Share your height, weight or a similar fitted garment on WhatsApp. We confirm measurements and current stock for the specific piece before you pay.</p></details>
+        <details data-reveal><summary>Can I order on WhatsApp instead of paying online?<span aria-hidden="true">+</span></summary><p>Yes. Add pieces to your bag and choose “Order this bag on WhatsApp”. We will confirm size, colour and availability, then share payment or COD options.</p></details>
+        <details data-reveal><summary>What are the delivery times?<span aria-hidden="true">+</span></summary><p>Delivery timing depends on the destination and the selected piece. Availability is confirmed before dispatch and you will receive the expected timeline on WhatsApp.</p></details>
+        <details data-reveal><summary>How do I look after hand-embroidered kurtis?<span aria-hidden="true">+</span></summary><p>Turn the garment inside out and wash gently by hand or dry clean, following the care label supplied. Never wring embroidered areas. See the care guide for details.</p></details>
+        <details data-reveal><summary>Is online payment secure?<span aria-hidden="true">+</span></summary><p>Payments run through Razorpay's protected checkout with card, UPI and net banking. Orders are verified on the server before being confirmed.</p></details>
       </div>
     </section>
 
@@ -158,8 +222,27 @@
   <div class="modal-backdrop" id="quickViewModal" hidden>
     <div class="modal-card quick-view-card" role="dialog" aria-modal="true" aria-labelledby="quickTitle">
       <button class="modal-close" data-close="quickViewModal" type="button" aria-label="Close product details">×</button>
-      <div class="quick-view-image"><img id="quickImage" src="images/product-1.jpg?v=2" alt=""></div>
-      <div class="quick-view-copy"><span class="eyebrow dark" id="quickCategory">HANDMADE EDIT</span><h2 id="quickTitle"></h2><strong class="quick-price" id="quickPrice"></strong><p id="quickDescription"></p><ul class="product-notes"><li>Detailed product and care information available</li><li>Colour may vary slightly in photographs</li><li>Contact us to confirm current sizes and availability</li></ul><div class="quick-actions"><button class="btn primary" id="quickAddBtn" type="button">Add to bag</button><a class="btn secondary" id="quickDetailsLink" href="product.html">View full details</a><a class="btn secondary" id="quickWhatsAppBtn" href="#" target="_blank" rel="noopener">Ask on WhatsApp</a></div></div>
+      <div class="quick-view-image"><img id="quickImage" src="images/product-1.jpg?v=3" alt=""></div>
+      <div class="quick-view-copy">
+        <span class="eyebrow dark" id="quickCategory">HANDMADE EDIT</span>
+        <h2 id="quickTitle"></h2>
+        <div class="quick-rating" id="quickRating"></div>
+        <div class="quick-price-row"><strong class="quick-price" id="quickPrice"></strong><span class="compare-price" id="quickCompare"></span></div>
+        <p id="quickDescription"></p>
+        <fieldset class="size-options"><legend>Preferred size for enquiry</legend><div id="quickSizes" class="size-choice-list"></div><p id="quickSizeNote"></p><button class="text-button size-guide-action" id="quickSizeGuideBtn" type="button">View the size guide</button></fieldset>
+        <ul class="product-notes"><li>Detailed product and care information available</li><li>Colour may vary slightly in photographs</li><li>Contact us to confirm current sizes and availability</li></ul>
+        <div class="qty-row"><span>Quantity</span><div class="qty-stepper"><button id="quickQtyMinus" type="button" aria-label="Decrease quantity">−</button><span id="quickQty" aria-live="polite">1</span><button id="quickQtyPlus" type="button" aria-label="Increase quantity">+</button></div></div>
+        <div class="quick-actions">
+          <button class="btn primary" id="quickAddBtn" type="button">Add to bag</button>
+          <a class="btn secondary" id="quickDetailsLink" href="product.html">View full details</a>
+          <a class="btn secondary" id="quickWhatsAppBtn" href="#" target="_blank" rel="noopener">Ask on WhatsApp</a>
+        </div>
+        <ul class="trust-chips">
+          <li>Size help before payment</li>
+          <li>COD available</li>
+          <li>Razorpay secure checkout</li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -174,8 +257,17 @@
   <div class="modal-backdrop" id="accountModal" hidden>
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
       <button class="modal-close" data-close="accountModal" type="button" aria-label="Close">×</button><span class="eyebrow dark">YOUR ACCOUNT</span><h2 id="accountTitle">My account</h2><p class="modal-note" id="accountEmail">Signed in</p>
-      <form id="profileForm" class="checkout-fields"><label>Full name<input id="profileName" type="text" placeholder="Your name" autocomplete="name"></label><label>Mobile number<input id="profilePhone" type="tel" placeholder="10-digit mobile number" autocomplete="tel"></label><label>Delivery address<textarea id="profileAddress" rows="2" placeholder="House / street"></textarea></label><div class="profile-grid"><label>City<input id="profileCity" type="text" placeholder="City"></label><label>State<input id="profileState" type="text" placeholder="State"></label><label>PIN code<input id="profilePincode" type="text" inputmode="numeric" maxlength="6" placeholder="PIN code"></label></div><button class="btn primary full" type="submit">Save my details</button></form>
-      <div class="account-orders"><span class="eyebrow dark">MY ORDERS</span><div id="ordersList" class="orders-list"><p class="modal-note">Loading orders…</p></div><a class="btn secondary full account-page-link" href="orders.html">Open full order history</a><a class="text-button admin-link" href="admin-orders.html">Store order management</a></div><button class="btn secondary full" id="signOutBtn" type="button">Sign out</button><p class="form-message" id="accountMessage" role="status"></p>
+      <div class="account-tabs" role="tablist" aria-label="My account sections">
+        <button class="account-tab active" type="button" role="tab" data-account-tab="orders" aria-selected="true">My orders</button>
+        <button class="account-tab" type="button" role="tab" data-account-tab="profile" aria-selected="false">Profile &amp; details</button>
+      </div>
+      <div class="account-pane" role="tabpanel" data-account-pane="orders">
+        <div class="account-orders"><span class="eyebrow dark">MY ORDERS</span><div id="ordersList" class="orders-list"><p class="modal-note">Loading orders…</p></div><a class="btn secondary full account-page-link" href="orders.html">Open full order history</a><a class="text-button admin-link" href="admin-orders.html">Store order management</a></div>
+      </div>
+      <div class="account-pane" role="tabpanel" data-account-pane="profile" hidden>
+        <form id="profileForm" class="checkout-fields"><label>Full name<input id="profileName" type="text" placeholder="Your name" autocomplete="name"></label><label>Mobile number<input id="profilePhone" type="tel" placeholder="10-digit mobile number" autocomplete="tel"></label><label>Delivery address<textarea id="profileAddress" rows="2" placeholder="House / street"></textarea></label><div class="profile-grid"><label>City<input id="profileCity" type="text" placeholder="City"></label><label>State<input id="profileState" type="text" placeholder="State"></label><label>PIN code<input id="profilePincode" type="text" inputmode="numeric" maxlength="6" placeholder="PIN code"></label></div><button class="btn primary full" type="submit">Save my details</button></form>
+      </div>
+      <button class="btn secondary full" id="signOutBtn" type="button">Sign out</button><p class="form-message" id="accountMessage" role="status"></p>
     </div>
   </div>
 
@@ -189,9 +281,36 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <div class="modal-backdrop" id="sizeGuideModal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="sizeGuideTitle">
+      <button class="modal-close" data-close="sizeGuideModal" type="button" aria-label="Close size guide">×</button>
+      <span class="eyebrow dark">SIZE GUIDE</span><h2 id="sizeGuideTitle">Finding your fit</h2>
+      <p class="modal-note">Standard garment measurements in inches. The exact fit depends on the piece and how you like your kurtis to sit.</p>
+      <table class="size-guide-table">
+        <thead><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hip</th><th>Length</th></tr></thead>
+        <tbody>
+          <tr><td>S</td><td>32–34″</td><td>26–28″</td><td>34–36″</td><td>38″</td></tr>
+          <tr><td>M</td><td>34–36″</td><td>28–30″</td><td>36–38″</td><td>39″</td></tr>
+          <tr><td>L</td><td>36–38″</td><td>30–32″</td><td>38–40″</td><td>40″</td></tr>
+          <tr><td>XL</td><td>38–41″</td><td>32–35″</td><td>40–43″</td><td>41″</td></tr>
+          <tr><td>XXL</td><td>41–44″</td><td>35–38″</td><td>43–46″</td><td>42″</td></tr>
+        </tbody>
+      </table>
+      <p class="size-guide-note">Garment measurements for the specific piece are confirmed personally with you before dispatch — message us with your height, weight or a similar fitted garment and we will recommend the right size.</p>
+    </div>
+  </div>
+
+  <div class="mobile-bag-bar" id="mobileBagBar" hidden>
+    <button class="mobile-bag-bar-inner" id="mobileBagOpen" type="button" aria-label="View your shopping bag">
+      <span class="mobile-bag-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 8h12l1 12H5L6 8Zm3 0V6a3 3 0 0 1 6 0v2"/></svg><span class="mobile-bag-count" id="mobileBagCount" aria-hidden="true">0</span></span>
+      <span class="mobile-bag-copy"><small>Your bag</small><strong id="mobileBagTotal">₹0</strong></span>
+      <span class="mobile-bag-cta">View bag</span>
+    </button>
+  </div>
+
   <footer>
     <div class="footer-grid">
-      <div class="footer-brand"><img src="logo.svg" alt="Lakhnavi Chikankari"><p>Handmade women’s kurtis with a colourful Lakhnavi touch.</p></div>
+      <div class="footer-brand"><img src="logo.svg" alt="Lakhnavi Chikankari"><p>Handmade women’s kurtis with a colourful Lakhnavi touch. Every piece is confirmed personally before dispatch.</p><a class="footer-phone" href="tel:+919899551923">Call 98995 51923</a></div>
       <div><h3>Collections</h3><a href="#collection">Shop all</a><a href="#collection">Pastels</a><a href="#collection">Bright colours</a><a href="product.html?id=p1">Featured product</a></div>
       <div><h3>Lakhnavi</h3><a href="about.html">Our story</a><a href="care-guide.html">Care guide</a><a href="contact.html">Contact us</a><a href="orders.html">My orders</a></div>
       <div><h3>Shopping help</h3><p>For sizes, colours, availability and delivery information, speak with us directly before ordering.</p><a class="footer-chat" href="https://wa.me/919899551923" target="_blank" rel="noopener">Chat on WhatsApp →</a></div>

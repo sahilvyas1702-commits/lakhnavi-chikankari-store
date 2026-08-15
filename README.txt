@@ -8,7 +8,10 @@ original to Lakhnavi Chikankari.
 WHAT IS INCLUDED
 ----------------
 - Collection-first homepage with responsive desktop and mobile layouts
+- Emerald & Ivory visual theme with announcement marquee, hero slider,
+  testimonials, FAQ and shipping/returns/COD information sections
 - Product search, sorting, colour filters, price filter and quick view
+  with ratings, compare-at prices and quantity selection
 - Dedicated product pages with richer craft, care, fit and ordering guidance
 - Separate Our Story, Care Guide, Contact, My Orders and Order Management pages
 - Persistent shopping bag and WhatsApp bag ordering
@@ -17,6 +20,17 @@ WHAT IS INCLUDED
 - Razorpay Standard Checkout through protected Netlify Functions
 - Server-side verification of customer session, signature and paid amount
 - Supabase-policy-protected admin order status and tracking updates
+
+CHANGING THE THEME OR PHONE NUMBER
+----------------------------------
+Theme colours are defined at the top of style.css in :root (--wine is the
+brand emerald, --wine-dark is the deep forest, --gold is the champagne
+accent). Changing those values restyles the whole site.
+
+The phone number used for WhatsApp ordering, the call button and the phone
+section is stored as a plain 10-digit number in config.js under PHONE_10.
+Every WhatsApp, tel and display format is derived automatically from it, so
+you only edit that one value.
 
 FREE WEBSITE ADDRESS
 --------------------

@@ -1,6 +1,6 @@
 document.documentElement.classList.add('js');
 
-const phone = '919899551923';
+const phone = (window.SHOP_PHONE && window.SHOP_PHONE.wa) || '919899551923';
 const products = window.PRODUCTS || {};
 let authMode = 'signin';
 let supabaseClient = null;
@@ -49,19 +49,40 @@ if (configuredSupabase() && window.supabase?.createClient) {
 }
 
 // Catalogue
+function stars(rating) {
+  const value = Number(rating) || 0;
+  const full = Math.round(value);
+  return '★'.repeat(full) + '☆'.repeat(Math.max(0, 5 - full));
+}
+
+function discountPercent(product) {
+  const compare = Number(product.compareAt || 0);
+  const price = Number(product.price || 0);
+  if (!compare || compare <= price) return 0;
+  return Math.round(((compare - price) / compare) * 100);
+}
+
 function productCard([id, product], index) {
   const number = String(index + 1).padStart(2, '0');
-  return `<article class="product-card" data-id="${escapeHtml(id)}" data-name="${escapeHtml(product.name.toLowerCase())}" data-category="${escapeHtml(product.category || '')}">
+  const percent = discountPercent(product);
+  const badge = product.badge || (percent ? `${percent}% off` : 'Handmade');
+  const compareAt = product.compareAt && Number(product.compareAt) > Number(product.price)
+    ? `<s class="compare-price">${money(product.compareAt)}</s>` : '';
+  const rating = product.rating
+    ? `<span class="card-rating"><span class="stars" aria-hidden="true">${stars(product.rating)}</span> <em>${Number(product.rating).toFixed(1)} (${product.reviews || 0})</em></span>`
+    : '';
+  return `<article class="product-card" data-id="${escapeHtml(id)}" data-name="${escapeHtml(product.name.toLowerCase())}" data-category="${escapeHtml(product.category || '')}" data-reveal>
     <button class="product-visual" type="button" data-quick="${escapeHtml(id)}" aria-label="View details for ${escapeHtml(product.name)}">
       <img src="${escapeHtml(product.image)}" width="750" height="1000" alt="${escapeHtml(product.name)}" loading="lazy">
-      <span class="tag">Handmade</span>
+      <span class="tag ${percent ? 'is-sale' : ''}">${escapeHtml(badge)}</span>
       <span class="view-pill">Quick view</span>
     </button>
     <div class="product-info">
       <span class="product-no">KURTI • ${number}</span>
       <h3><a href="product.html?id=${encodeURIComponent(id)}">${escapeHtml(product.name)}</a></h3>
+      ${rating}
       <p>${escapeHtml(product.description || '')}</p>
-      <div class="product-price-row"><strong class="product-price">${money(product.price)}</strong><span class="availability">Sizes on request</span></div>
+      <div class="product-price-row"><strong class="product-price">${money(product.price)}</strong>${compareAt}<span class="availability">Sizes on request</span></div>
       <div class="product-actions">
         <a class="card-button details" href="product.html?id=${encodeURIComponent(id)}">Full details</a>
         <button class="card-button add" type="button" data-add="${escapeHtml(id)}">Add to bag</button>
@@ -85,6 +106,7 @@ function renderProductGrid() {
   if (!productGrid) return;
   productGrid.innerHTML = sortedProductEntries().map(productCard).join('');
   updateProductResults();
+  observeReveals();
 }
 
 function updateProductResults() {
@@ -114,6 +136,7 @@ function selectFilter(value) {
     const selected = item.dataset.filter === value;
     item.classList.toggle('active', selected);
     item.setAttribute('aria-pressed', String(selected));
+    if (item.getAttribute('role') === 'tab') item.setAttribute('aria-selected', String(selected));
   });
   document.querySelectorAll('input[name="drawerFilter"]').forEach(input => {
     input.checked = input.value === value;
@@ -141,22 +164,63 @@ document.getElementById('sortProducts')?.addEventListener('change', event => {
   renderProductGrid();
 });
 
+let quickQty = 1;
+let quickSize = '';
+
 function openProduct(id) {
   const product = products[id];
   if (!product) return;
+  quickQty = 1;
+  quickSize = '';
   const image = document.getElementById('quickImage');
   image.src = product.image;
   image.alt = product.name;
   document.getElementById('quickTitle').textContent = product.name;
   document.getElementById('quickPrice').textContent = money(product.price);
+  const compare = document.getElementById('quickCompare');
+  if (product.compareAt && Number(product.compareAt) > Number(product.price)) {
+    compare.textContent = money(product.compareAt);
+    compare.classList.add('is-sale');
+  } else {
+    compare.textContent = '';
+    compare.classList.remove('is-sale');
+  }
+  const rating = document.getElementById('quickRating');
+  rating.innerHTML = product.rating
+    ? `<span class="stars" aria-hidden="true">${stars(product.rating)}</span> <em>${Number(product.rating).toFixed(1)} · ${product.reviews || 0} reviews</em>`
+    : '';
   document.getElementById('quickDescription').textContent = product.description || '';
   document.getElementById('quickCategory').textContent = `${(product.category || 'handmade').split(' ')[0].toUpperCase()} EDIT`;
   document.getElementById('quickAddBtn').dataset.productId = id;
   document.getElementById('quickDetailsLink').href = `product.html?id=${encodeURIComponent(id)}`;
+
+  const sizes = Array.isArray(window.PRODUCT_GUIDANCE?.sizes) ? window.PRODUCT_GUIDANCE.sizes : ['S', 'M', 'L', 'XL', 'XXL'];
+  const sizeBox = document.getElementById('quickSizes');
+  sizeBox.innerHTML = sizes.map(size => `<button type="button" data-qsize="${escapeHtml(size)}" aria-pressed="false">${escapeHtml(size)}</button>`).join('');
+  sizeBox.querySelectorAll('[data-qsize]').forEach(button => button.addEventListener('click', () => {
+    quickSize = button.dataset.qsize;
+    sizeBox.querySelectorAll('[data-qsize]').forEach(option => {
+      const active = option === button;
+      option.classList.toggle('active', active);
+      option.setAttribute('aria-pressed', String(active));
+    });
+  }));
+  document.getElementById('quickSizeNote').textContent = window.PRODUCT_GUIDANCE?.sizeNote || '';
+  document.getElementById('quickQty').textContent = '1';
+
   const message = `Hello Lakhnavi Chikankari, I am interested in the "${product.name}" priced at ${money(product.price)}. Please share current sizes, colours and delivery details.`;
   document.getElementById('quickWhatsAppBtn').href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   openModal('quickViewModal');
 }
+
+document.getElementById('quickQtyMinus')?.addEventListener('click', () => {
+  quickQty = Math.max(1, quickQty - 1);
+  document.getElementById('quickQty').textContent = String(quickQty);
+});
+document.getElementById('quickQtyPlus')?.addEventListener('click', () => {
+  quickQty = Math.min(10, quickQty + 1);
+  document.getElementById('quickQty').textContent = String(quickQty);
+});
 
 productGrid?.addEventListener('click', event => {
   const quickButton = event.target.closest('[data-quick]');
@@ -168,7 +232,10 @@ productGrid?.addEventListener('click', event => {
 document.getElementById('quickAddBtn')?.addEventListener('click', event => {
   const id = event.currentTarget.dataset.productId;
   if (!id) return;
-  addToCart(id);
+  addToCart(id, quickQty);
+  const product = products[id];
+  const sizeNote = quickSize ? ` Preferred size ${quickSize} noted for your enquiry.` : '';
+  showToast(`${product.name} added to your bag.${sizeNote}`);
   closeModal('quickViewModal');
   openModal('cartModal');
 });
@@ -254,9 +321,10 @@ function saveCart() {
   updateCartUI();
 }
 
-function addToCart(id) {
+function addToCart(id, quantity = 1) {
   if (!products[id]) return;
-  cart[id] = Math.min(10, Number(cart[id] || 0) + 1);
+  const amount = Math.max(1, Math.min(10, Number(quantity) || 1));
+  cart[id] = Math.min(10, Number(cart[id] || 0) + amount);
   saveCart();
   showToast(`${products[id].name} added to your bag`);
 }
@@ -281,6 +349,13 @@ function updateCartUI() {
   const count = document.getElementById('cartCount');
   count.textContent = countValue;
   count.setAttribute('aria-label', `${countValue} ${countValue === 1 ? 'item' : 'items'}`);
+
+  const mobileBar = document.getElementById('mobileBagBar');
+  const mobileCount = document.getElementById('mobileBagCount');
+  const mobileTotal = document.getElementById('mobileBagTotal');
+  if (mobileCount) mobileCount.textContent = countValue;
+  if (mobileTotal) mobileTotal.textContent = money(cartTotal());
+  if (mobileBar) mobileBar.hidden = countValue === 0;
 
   const box = document.getElementById('cartItems');
   if (!box) return;
@@ -358,6 +433,11 @@ document.getElementById('cartBtn')?.addEventListener('click', () => {
   updateCartUI();
   openModal('cartModal');
 });
+document.getElementById('mobileBagOpen')?.addEventListener('click', () => {
+  updateCartUI();
+  openModal('cartModal');
+});
+document.getElementById('quickSizeGuideBtn')?.addEventListener('click', () => openModal('sizeGuideModal'));
 document.getElementById('authBtn')?.addEventListener('click', openAccount);
 
 // Authentication
@@ -393,6 +473,21 @@ function setAuthMode(mode) {
 
 document.querySelectorAll('.auth-tab').forEach(tab => {
   tab.addEventListener('click', () => setAuthMode(tab.dataset.authMode));
+});
+
+function setAccountTab(name) {
+  document.querySelectorAll('.account-tab').forEach(tab => {
+    const selected = tab.dataset.accountTab === name;
+    tab.classList.toggle('active', selected);
+    tab.setAttribute('aria-selected', String(selected));
+  });
+  document.querySelectorAll('.account-pane').forEach(pane => {
+    pane.hidden = pane.dataset.accountPane !== name;
+  });
+}
+
+document.querySelectorAll('.account-tab').forEach(tab => {
+  tab.addEventListener('click', () => setAccountTab(tab.dataset.accountTab));
 });
 
 const AUTH_EMAIL_COOLDOWN_MS = 60 * 1000;
@@ -608,6 +703,7 @@ async function openAccount() {
     return;
   }
   document.getElementById('accountEmail').textContent = currentSession.user.email || 'Signed in';
+  setAccountTab('orders');
   openModal('accountModal');
   await Promise.all([loadProfile(), loadOrders()]);
 }
@@ -666,7 +762,7 @@ async function payNow() {
       order_id: data.orderId,
       prefill: { name, contact: mobile, email: currentSession.user.email || '' },
       notes: { delivery_address: address },
-      theme: { color: '#6e2547' },
+      theme: { color: '#2c3e6b' },
       retry: { enabled: true },
       timeout: 900,
       handler: async payment => {
@@ -745,21 +841,73 @@ document.getElementById('newsletterForm')?.addEventListener('submit', event => {
   event.currentTarget.reset();
 });
 
-// Gentle reveal motion. Content remains visible when JavaScript is unavailable.
-const revealItems = document.querySelectorAll('[data-reveal]');
-if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: .12 });
-  revealItems.forEach(item => revealObserver.observe(item));
-} else {
-  revealItems.forEach(item => item.classList.add('is-visible'));
+function prefersReducedMotion() {
+  return typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
+
+// Gentle reveal motion. Content remains visible when JavaScript is unavailable.
+function observeReveals() {
+  const items = document.querySelectorAll('[data-reveal]:not(.is-visible)');
+  if (!items.length) return;
+  if ('IntersectionObserver' in window && !prefersReducedMotion()) {
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .12 });
+    items.forEach(item => revealObserver.observe(item));
+  } else {
+    items.forEach(item => item.classList.add('is-visible'));
+  }
+}
+observeReveals();
+
+// Hero slider
+const heroSlider = document.getElementById('heroSlider');
+const heroSlides = heroSlider ? [...heroSlider.querySelectorAll('.hero-slide')] : [];
+const heroDots = document.getElementById('heroDots');
+let heroIndex = 0;
+let heroTimer = null;
+
+function renderHeroDots() {
+  if (!heroDots || !heroSlides.length) return;
+  heroDots.innerHTML = heroSlides.map((_slide, index) =>
+    `<button class="hero-dot ${index === heroIndex ? 'is-active' : ''}" type="button" data-slide="${index}" role="tab" aria-label="Go to slide ${index + 1}" aria-selected="${index === heroIndex}"></button>`
+  ).join('');
+  heroDots.querySelectorAll('[data-slide]').forEach(dot => dot.addEventListener('click', () => goToSlide(Number(dot.dataset.slide))));
+}
+
+function goToSlide(index) {
+  if (!heroSlides.length) return;
+  heroIndex = (index + heroSlides.length) % heroSlides.length;
+  heroSlides.forEach((slide, slideIndex) => {
+    const active = slideIndex === heroIndex;
+    slide.classList.toggle('is-active', active);
+    slide.setAttribute('aria-hidden', String(!active));
+  });
+  renderHeroDots();
+  restartHeroTimer();
+}
+
+function nextSlide() { goToSlide(heroIndex + 1); }
+function restartHeroTimer() {
+  if (heroTimer) clearTimeout(heroTimer);
+  if (prefersReducedMotion() || heroSlides.length < 2) return;
+  heroTimer = setTimeout(nextSlide, 6000);
+}
+
+document.getElementById('heroPrev')?.addEventListener('click', () => goToSlide(heroIndex - 1));
+document.getElementById('heroNext')?.addEventListener('click', nextSlide);
+if (heroSlides.length) {
+  heroSlides.forEach((slide, index) => slide.setAttribute('aria-hidden', String(index !== 0)));
+  renderHeroDots();
+  restartHeroTimer();
+}
+
+// FAQ summary marker rotation is handled in CSS via details[open].
 
 renderProductGrid();
 updateCartUI();

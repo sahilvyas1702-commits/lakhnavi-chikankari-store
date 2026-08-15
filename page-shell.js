@@ -1,6 +1,7 @@
 (() => {
   document.documentElement.classList.add('js');
-  const phone = '919899551923';
+  const phone = (window.SHOP_PHONE && window.SHOP_PHONE.wa) || '919899551923';
+  const phoneDisplay = (window.SHOP_PHONE && window.SHOP_PHONE.display) || '98995 51923';
   const headerTarget = document.getElementById('pageHeader');
   const footerTarget = document.getElementById('pageFooter');
 
@@ -38,7 +39,7 @@
           <div class="footer-brand"><img src="logo.svg" alt="Lakhnavi Chikankari"><p>Handmade women’s kurtis with a colourful Lakhnavi touch.</p></div>
           <div><h3>Shop</h3><a href="index.html#collection">All kurtis</a><a href="product.html?id=p1">Featured piece</a><a href="orders.html">My orders</a><a href="index.html?open=cart">Shopping bag</a></div>
           <div><h3>About</h3><a href="about.html">Our story</a><a href="care-guide.html">Care guide</a><a href="contact.html">Contact us</a><a href="admin-orders.html">Order management</a></div>
-          <div><h3>Personal help</h3><p>Ask us about sizes, colours, availability, care and delivery before ordering.</p><a class="footer-chat" href="https://wa.me/${phone}" target="_blank" rel="noopener">Chat on WhatsApp →</a></div>
+          <div><h3>Personal help</h3><p>Ask us about sizes, colours, availability, care and delivery before ordering.</p><a class="footer-chat" href="https://wa.me/${phone}" target="_blank" rel="noopener">Chat on WhatsApp →</a><a class="footer-phone" href="tel:+91${phoneDisplay.replace(/\s/g, '')}">Call ${phoneDisplay}</a></div>
         </div>
         <div class="footer-bottom"><span>© 2026 Lakhnavi Chikankari</span><span>Made with care in India</span></div>
       </footer>
