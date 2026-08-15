@@ -155,7 +155,10 @@ document.getElementById('clearFiltersBtn')?.addEventListener('click', () => {
   activeMaxPrice = Number.POSITIVE_INFINITY;
   const maxPrice = document.getElementById('maxPrice');
   if (maxPrice) maxPrice.value = maxPrice.max;
+  const sidebarPrice = document.getElementById('sidebarMaxPrice');
+  if (sidebarPrice) sidebarPrice.value = sidebarPrice.max;
   updatePriceOutput();
+  updateSidebarPriceOutput();
   selectFilter('all');
 });
 
@@ -261,6 +264,12 @@ document.getElementById('headerSearchBtn')?.addEventListener('click', () => {
   setTimeout(() => document.getElementById('productSearch')?.focus(), 450);
 });
 
+document.getElementById('productSearch')?.addEventListener('keydown', event => {
+  if (event.key !== 'Enter') return;
+  event.preventDefault();
+  document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
 document.querySelectorAll('[data-category-link]').forEach(link => {
   link.addEventListener('click', () => selectFilter(link.dataset.categoryLink));
 });
@@ -271,6 +280,7 @@ const filterBackdrop = document.getElementById('filterBackdrop');
 const filterOpenButton = document.getElementById('filterOpenBtn');
 const maxPriceInput = document.getElementById('maxPrice');
 const catalogueMaximumPrice = Math.max(...Object.values(products).map(product => product.price));
+const catalogueMinimumPrice = Math.min(...Object.values(products).map(product => product.price));
 
 function updatePriceOutput() {
   const output = document.getElementById('maxPriceOutput');
@@ -289,18 +299,53 @@ function setFilterDrawer(open) {
 filterOpenButton?.addEventListener('click', () => setFilterDrawer(true));
 document.getElementById('filterCloseBtn')?.addEventListener('click', () => setFilterDrawer(false));
 filterBackdrop?.addEventListener('click', () => setFilterDrawer(false));
-maxPriceInput?.addEventListener('input', updatePriceOutput);
+
+// Sidebar price filter (desktop) — kept in sync with the drawer range
+const sidebarMaxPriceInput = document.getElementById('sidebarMaxPrice');
+const sidebarMaxPriceOutput = document.getElementById('sidebarMaxPriceOutput');
+
+function updateSidebarPriceOutput() {
+  if (!sidebarMaxPriceInput || !sidebarMaxPriceOutput) return;
+  sidebarMaxPriceOutput.textContent = money(sidebarMaxPriceInput.value);
+}
+
+function applySidebarPrice() {
+  if (!sidebarMaxPriceInput) return;
+  activeMaxPrice = Number(sidebarMaxPriceInput.value) || catalogueMaximumPrice;
+  if (maxPriceInput) maxPriceInput.value = String(activeMaxPrice);
+  updateSidebarPriceOutput();
+  updatePriceOutput();
+  updateProductResults();
+}
+
+if (sidebarMaxPriceInput) {
+  sidebarMaxPriceInput.min = String(catalogueMinimumPrice);
+  sidebarMaxPriceInput.max = String(catalogueMaximumPrice);
+  sidebarMaxPriceInput.value = String(catalogueMaximumPrice);
+}
+updateSidebarPriceOutput();
+
+maxPriceInput?.addEventListener('input', () => {
+  if (sidebarMaxPriceInput) sidebarMaxPriceInput.value = maxPriceInput.value;
+  updateSidebarPriceOutput();
+  updatePriceOutput();
+});
+sidebarMaxPriceInput?.addEventListener('input', applySidebarPrice);
 document.getElementById('filterApplyBtn')?.addEventListener('click', () => {
   const selected = document.querySelector('input[name="drawerFilter"]:checked')?.value || 'all';
   activeMaxPrice = Number(maxPriceInput?.value || catalogueMaximumPrice);
+  if (sidebarMaxPriceInput) sidebarMaxPriceInput.value = String(activeMaxPrice);
+  updateSidebarPriceOutput();
   selectFilter(selected);
   setFilterDrawer(false);
 });
 document.getElementById('filterClearBtn')?.addEventListener('click', () => {
   activeMaxPrice = Number.POSITIVE_INFINITY;
   if (maxPriceInput) maxPriceInput.value = String(catalogueMaximumPrice);
+  if (sidebarMaxPriceInput) sidebarMaxPriceInput.value = String(catalogueMaximumPrice);
   const search = document.getElementById('productSearch');
   if (search) search.value = '';
+  updateSidebarPriceOutput();
   updatePriceOutput();
   selectFilter('all');
   setFilterDrawer(false);
